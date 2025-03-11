@@ -48,6 +48,8 @@ const rules = reactive<FormRules>({
 
 const isLoading = ref(false)
 const authStore = useAuthStore()
+const router = useRouter()
+const route = useRoute()
 
 const onSubmit = async (fromEl: FormInstance | undefined) => {
   if (!fromEl) return
@@ -64,6 +66,7 @@ const onSubmit = async (fromEl: FormInstance | undefined) => {
     }
     ElMessage.success('登录成功')
     authStore.setToken(res.data.content)
+    router.push((route.query.redirect as string) || '/')
   } catch (error) {
     ElMessage.error('登录失败，请重试')
   } finally {

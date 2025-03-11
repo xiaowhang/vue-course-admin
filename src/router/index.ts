@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { AppLayout } from '@/components'
+import { useAuthStore } from '@/stores'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +12,10 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: AppLayout,
+      meta: {
+        requiresAuth: true,
+      },
+      component: () => import('@/components/layout/AppLayout.vue'),
       children: [
         {
           path: '',
@@ -27,6 +30,19 @@ const router = createRouter({
       component: () => import('@/views/NotFoundView.vue'),
     },
   ],
+})
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some((record) => record?.meta?.requiresAuth)
+  if (requiresAuth) {
+    const authStore = useAuthStore()
+    if (!authStore.token.access_token) {
+      next({ name: 'login', query: { redirect: to.fullPath } })
+      return
+    }
+  }
+
+  next()
 })
 
 export default router

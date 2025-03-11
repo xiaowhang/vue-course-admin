@@ -15,13 +15,10 @@
     </el-breadcrumb>
 
     <el-dropdown>
-      <el-avatar
-        :size="36"
-        :src="'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'"
-      />
+      <el-avatar :size="36" :src="userInfo.portrait" />
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item>用户姓名</el-dropdown-item>
+          <el-dropdown-item>{{ userInfo.userName }}</el-dropdown-item>
           <el-dropdown-item divided>退出</el-dropdown-item>
         </el-dropdown-menu>
       </template>
@@ -31,12 +28,22 @@
 
 <script setup lang="ts">
 import { useMenuStore } from '@/stores'
+import { getUserInfo } from '@/api'
 
 defineOptions({
   name: 'AppHeader',
 })
 
 const menuStore = useMenuStore()
+
+const userInfo = reactive({
+  userName: '',
+  portrait: '',
+})
+getUserInfo().then((res) => {
+  const { userName, portrait } = res.data.content
+  Object.assign(userInfo, { userName, portrait })
+})
 </script>
 
 <style scoped lang="scss">

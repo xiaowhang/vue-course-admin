@@ -25,3 +25,21 @@ export const login = (data: LoginInfoType) => {
     data: params,
   })
 }
+
+type UserInfoType = {
+  success: boolean
+  state: number
+  message: string
+  content: {
+    isUpdatePassword: boolean
+    portrait: string
+    userName: string
+  }
+}
+
+export const getUserInfo = () => {
+  return request<UserInfoType>({
+    method: 'GET',
+    url: '/api/front/user/getInfo',
+  })
+}

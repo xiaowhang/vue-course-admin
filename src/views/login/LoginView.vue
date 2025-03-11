@@ -17,7 +17,7 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit(formRef)">登录</el-button>
+        <el-button type="primary" @click="onSubmit(formRef)" :loading="isLoading">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
@@ -45,20 +45,27 @@ const rules = reactive<FormRules>({
   ],
 })
 
+const isLoading = ref(false)
+
 const onSubmit = async (fromEl: FormInstance | undefined) => {
   if (!fromEl) return
-  await fromEl.validate((valid) => {
+  isLoading.value = true
+
+  try {
+    const valid = await fromEl.validate()
     if (!valid) return
 
-    login(form).then((res) => {
-      if (!res.data.success) {
-        ElMessage.error('账号或密码错误')
-        return
-      }
-
-      ElMessage.success('登录成功')
-    })
-  })
+    const res = await login(form)
+    if (!res.data.success) {
+      ElMessage.error('账号或密码错误')
+      return
+    }
+    ElMessage.success('登录成功')
+  } catch (error) {
+    ElMessage.error('登录失败，请重试')
+  } finally {
+    isLoading.value = false
+  }
 }
 </script>
 

@@ -18,16 +18,17 @@ request.interceptors.request.use((config) => {
 
 // 响应拦截器
 request.interceptors.response.use(
-  (response) => {
-    return response
-  },
+  (response) => response,
   async (error) => {
-    if (error.response.status === 401) {
+    const { config, response } = error
+
+    // 处理 401 且不是刷新 token 的请求
+    if (response.status === 401 && !config?.url.includes('refresh_token')) {
       const { data } = await refreshToken()
       if (data.success) {
         const authStore = useAuthStore()
         authStore.setToken(data.content)
-        return request(error.config)
+        return request(config)
       } else {
         ElMessage.error('登录已过期，请重新登录')
         router.push({ name: 'login' })

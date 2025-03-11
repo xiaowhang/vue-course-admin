@@ -60,13 +60,24 @@ type RefreshTokenType = {
   message: string
   content: string
 }
+
 // 刷新token
+let isRefreshing = false
+let requests: Promise<any>
 export const refreshToken = () => {
-  return request<RefreshTokenType>({
+  if (isRefreshing) {
+    return requests
+  }
+
+  isRefreshing = true
+  requests = request<RefreshTokenType>({
     method: 'POST',
     url: '/api/front/user/refresh_token',
     params: {
-      refreshToken: useAuthStore().token?.refresh_token,
+      refreshtoken: useAuthStore().token?.refresh_token,
     },
+  }).finally(() => {
+    isRefreshing = false
   })
+  return requests
 }

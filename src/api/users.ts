@@ -43,3 +43,10 @@ export const getUserInfo = () => {
     url: '/api/front/user/getInfo',
   })
 }
+
+export const logout = () => {
+  return request({
+    method: 'POST',
+    url: '/api/front/user/logout',
+  })
+}

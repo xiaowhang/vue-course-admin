@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import { useAuthStore } from '@/stores'
 
 type LoginInfoType = {
   phone: string
@@ -37,6 +38,7 @@ type UserInfoType = {
   }
 }
 
+// 获取用户信息
 export const getUserInfo = () => {
   return request<UserInfoType>({
     method: 'GET',
@@ -44,9 +46,27 @@ export const getUserInfo = () => {
   })
 }
 
+// 退出登录
 export const logout = () => {
   return request({
     method: 'POST',
     url: '/api/front/user/logout',
+  })
+}
+
+type RefreshTokenType = {
+  success: boolean
+  state: number
+  message: string
+  content: string
+}
+// 刷新token
+export const refreshToken = () => {
+  return request<RefreshTokenType>({
+    method: 'POST',
+    url: '/api/front/user/refresh_token',
+    params: {
+      refreshToken: useAuthStore().token?.refresh_token,
+    },
   })
 }

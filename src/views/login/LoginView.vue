@@ -26,6 +26,7 @@
 <script setup lang="ts">
 import type { FormInstance, FormRules } from 'element-plus'
 import { login } from '@/api'
+import { useAuthStore } from '@/stores'
 
 const formRef = ref<FormInstance>()
 const form = reactive({
@@ -46,6 +47,7 @@ const rules = reactive<FormRules>({
 })
 
 const isLoading = ref(false)
+const authStore = useAuthStore()
 
 const onSubmit = async (fromEl: FormInstance | undefined) => {
   if (!fromEl) return
@@ -61,6 +63,7 @@ const onSubmit = async (fromEl: FormInstance | undefined) => {
       return
     }
     ElMessage.success('登录成功')
+    authStore.setToken(res.data.content)
   } catch (error) {
     ElMessage.error('登录失败，请重试')
   } finally {

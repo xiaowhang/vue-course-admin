@@ -52,7 +52,7 @@
 </template>
 
 <script setup lang="ts">
-import { useMenuStore } from '@/stores/useMenuStore'
+import { useMenuStore } from '@/stores'
 
 defineOptions({
   name: 'AppAside',

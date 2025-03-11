@@ -1,30 +1,55 @@
 <template>
   <div class="login-container">
-    <el-form :model="form" label-width="auto" label-position="top" size="large">
+    <el-form
+      ref="formRef"
+      :model="form"
+      :rules="rules"
+      label-width="auto"
+      label-position="top"
+      size="large"
+    >
       <div class="el-form__label">登录</div>
-      <el-form-item label="账号">
+      <el-form-item label="账号" prop="account">
         <el-input v-model="form.account" />
       </el-form-item>
-      <el-form-item label="密码">
+      <el-form-item label="密码" prop="password">
         <el-input v-model="form.password" />
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" @click="onSubmit">登录</el-button>
+        <el-button type="primary" @click="onSubmit(formRef)">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script setup lang="ts">
-// do not use same name with ref
+import type { FormInstance, FormRules } from 'element-plus'
+
 const form = reactive({
   account: 'admin',
   password: 'admin',
 })
+const formRef = ref<FormInstance>()
 
-const onSubmit = () => {
-  ElMessage.success('submit success')
+// 表单验证规则
+const rules = reactive<FormRules>({
+  account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+  password: [
+    { required: true, message: '请输入密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度在 6 到 20 个字符', trigger: 'change' },
+  ],
+})
+
+const onSubmit = async (fromEl: FormInstance | undefined) => {
+  if (!fromEl) return
+  await fromEl.validate((valid) => {
+    if (valid) {
+      ElMessage.success('登录成功')
+    } else {
+      ElMessage.error('登录失败')
+    }
+  })
 }
 </script>
 

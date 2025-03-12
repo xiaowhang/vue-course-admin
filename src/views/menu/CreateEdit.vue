@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" label-width="auto" size="large" ref="formRef">
+  <el-form :model="form" label-width="auto" style="width: 80%" size="large" ref="formRef">
     <el-form-item label="菜单名称" prop="name">
       <el-input v-model="form.name" />
     </el-form-item>
@@ -68,7 +68,7 @@ onMounted(() => {
     justify-content: space-evenly;
   }
   .el-button {
-    width: 200px;
+    width: 30%;
   }
 }
 </style>

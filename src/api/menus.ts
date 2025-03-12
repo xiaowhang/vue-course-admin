@@ -43,3 +43,10 @@ export const saveMenu = (data: saveMenuParams) => {
     data,
   })
 }
+
+export const deleteMenu = (id: number) => {
+  return request<ApiResponse<boolean>>({
+    method: 'DELETE',
+    url: `/api/boss/menu/${id}`,
+  })
+}

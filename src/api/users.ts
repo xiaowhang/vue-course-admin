@@ -7,11 +7,11 @@ type LoginInfoType = {
   password: string
 }
 
-type LoginResultType = {
+type CommonResultType<T = string> = {
   success: boolean
   state: number
   message: string
-  content: string
+  content: T
 }
 
 // 用户登录
@@ -20,23 +20,18 @@ export const login = (data: LoginInfoType) => {
   params.append('phone', data.phone)
   params.append('password', data.password)
 
-  return request<LoginResultType>({
+  return request<CommonResultType>({
     method: 'POST',
     url: '/api/front/user/login',
     data: params,
   })
 }
 
-type UserInfoType = {
-  success: boolean
-  state: number
-  message: string
-  content: {
-    isUpdatePassword: boolean
-    portrait: string
-    userName: string
-  }
-}
+type UserInfoType = CommonResultType<{
+  isUpdatePassword: boolean
+  portrait: string
+  userName: string
+}>
 
 // 获取用户信息
 export const getUserInfo = () => {
@@ -54,13 +49,6 @@ export const logout = () => {
   })
 }
 
-type RefreshTokenType = {
-  success: boolean
-  state: number
-  message: string
-  content: string
-}
-
 // 刷新token
 let isRefreshing = false
 let requests: Promise<any>
@@ -70,7 +58,7 @@ export const refreshToken = () => {
   }
 
   isRefreshing = true
-  requests = request<RefreshTokenType>({
+  requests = request<CommonResultType<string>>({
     method: 'POST',
     url: '/api/front/user/refresh_token',
     params: {

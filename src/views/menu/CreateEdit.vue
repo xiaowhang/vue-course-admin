@@ -25,8 +25,8 @@
     </el-form-item>
     <el-form-item label="是否显示" prop="shown">
       <el-radio-group v-model="form.shown">
-        <el-radio :label="true">显示</el-radio>
-        <el-radio :label="false">隐藏</el-radio>
+        <el-radio :value="true">显示</el-radio>
+        <el-radio :value="false">隐藏</el-radio>
       </el-radio-group>
     </el-form-item>
     <el-form-item label="排序" prop="orderNum">

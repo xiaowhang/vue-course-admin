@@ -7,7 +7,7 @@ type ApiResponse<T> = {
   time: string
 }
 
-export type MenuType = {
+export type MenuInfoType = {
   createdBy: string
   createdTime: string
   description: string
@@ -25,14 +25,14 @@ export type MenuType = {
 }
 
 export const getAllMenus = () => {
-  return request<ApiResponse<MenuType[]>>({
+  return request<ApiResponse<MenuInfoType[]>>({
     method: 'GET',
     url: '/api/boss/menu/getAll',
   })
 }
 
 export type saveMenuParams = Pick<
-  MenuType,
+  MenuInfoType,
   'parentId' | 'name' | 'href' | 'icon' | 'orderNum' | 'description' | 'shown'
 > & { id?: number }
 
@@ -48,5 +48,16 @@ export const deleteMenu = (id: number) => {
   return request<ApiResponse<boolean>>({
     method: 'DELETE',
     url: `/api/boss/menu/${id}`,
+  })
+}
+
+type menuListType = MenuInfoType & { subMenuList: menuListType[] | null }
+type EditMenuInfoType = ApiResponse<{ menuInfo: MenuInfoType; parentMenuList: menuListType[] }>
+
+export const getEditMenuInfo = (id: number) => {
+  return request<EditMenuInfoType>({
+    method: 'GET',
+    url: '/api/boss/menu/getEditMenuInfo',
+    params: { id },
   })
 }

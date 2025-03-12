@@ -1,9 +1,9 @@
-import { getAllMenus, saveMenu, deleteMenu } from '@/api'
-import type { MenuType, saveMenuParams } from '@/api'
+import { getAllMenus, saveMenu, deleteMenu, getEditMenuInfo } from '@/api'
+import type { MenuInfoType, saveMenuParams } from '@/api'
 import type { FormInstance } from 'element-plus'
 import router from '@/router'
 
-const menus = ref([] as MenuType[])
+const menus = ref([] as MenuInfoType[])
 
 const getMenus = async () => {
   const { data } = await getAllMenus()
@@ -26,12 +26,15 @@ const form = reactive<saveMenuParams>({
 const formRef = ref<FormInstance | null>(null)
 
 const onSubmit = async () => {
-  const { data } = await saveMenu(form)
-  if (data.code === '000000' && data.data) {
-    ElMessage.success('提交成功')
-    router.push({ name: 'menus' })
-  } else ElMessage.error('提交失败')
-  resetForm()
+  try {
+    const { data } = await saveMenu(form)
+    if (data.code === '000000' && data.data) {
+      ElMessage.success(`${msgText.value}成功`)
+      await router.push({ name: 'menus' })
+    } else ElMessage.error(`${msgText.value}失败`)
+  } catch (error) {
+    console.error('保存菜单失败', error)
+  }
 }
 
 const resetForm = () => {
@@ -58,12 +61,21 @@ const handleDelete = async (id: number) => {
       console.error('取消删除失败', error)
     }
   }
-  // const { data } = await deleteMenu(id)
-  // if (data.code === '000000') {
-  //   ElMessage.success('删除成功')
-  //   getMenus()
-  // } else ElMessage.error('删除失败')
 }
+
+const getMenusInfoById = async (id: number) => {
+  if (isCreate.value) return
+
+  const { data } = await getEditMenuInfo(id)
+  if (data.code === '000000') {
+    Object.assign(form, data.data.menuInfo)
+  } else {
+    ElMessage.error('获取菜单信息失败')
+  }
+}
+
+const isCreate = computed(() => router.currentRoute.value.name === 'menus-create')
+const msgText = computed(() => (isCreate.value ? '创建' : '编辑'))
 
 export const useMenus = () => {
   return {
@@ -71,10 +83,12 @@ export const useMenus = () => {
     topMenus,
     form,
     formRef,
+    msgText,
 
     getMenus,
     onSubmit,
     resetForm,
     handleDelete,
+    getMenusInfoById,
   }
 }

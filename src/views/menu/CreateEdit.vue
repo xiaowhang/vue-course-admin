@@ -1,5 +1,5 @@
 <template>
-  <el-form :model="form" label-width="auto" style="width: 80%" size="large" ref="formRef">
+  <el-form :model="form" label-width="auto" size="large" ref="formRef">
     <el-form-item label="菜单名称" prop="name">
       <el-input v-model="form.name" />
     </el-form-item>
@@ -34,7 +34,7 @@
     </el-form-item>
 
     <el-form-item class="el-form-item__buttons">
-      <el-button type="primary" @click="onSubmit">提交</el-button>
+      <el-button type="primary" @click="onSubmit">{{ msgText }}</el-button>
       <el-button @click="resetForm">重置</el-button>
     </el-form-item>
   </el-form>
@@ -42,10 +42,17 @@
 
 <script setup lang="ts">
 import { useMenus } from '@/composables'
-const { getMenus, topMenus, onSubmit, formRef, form, resetForm } = useMenus()
+const { getMenus, topMenus, onSubmit, formRef, form, resetForm, getMenusInfoById, msgText } =
+  useMenus()
 
 onMounted(() => {
   getMenus()
+  const route = useRoute()
+  getMenusInfoById(Number(route.params.id))
+})
+
+onBeforeUnmount(() => {
+  resetForm()
 })
 </script>
 

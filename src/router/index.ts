@@ -32,6 +32,11 @@ const router = createRouter({
           name: 'menus-create',
           component: () => import('@/views/menu/CreateEdit.vue'),
         },
+        {
+          path: 'menus/:id/edit',
+          name: 'menus-edit',
+          component: () => import('@/views/menu/CreateEdit.vue'),
+        },
       ],
     },
     {

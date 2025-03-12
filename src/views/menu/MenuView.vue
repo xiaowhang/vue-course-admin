@@ -12,7 +12,13 @@
       <el-table-column prop="icon" label="菜单图标" min-width="90" align="center" />
       <el-table-column prop="orderNum" label="排序" min-width="60" align="center" />
       <el-table-column label="操作" width="180" align="center" #default="{ row }">
-        <el-button type="primary" plain>编辑</el-button>
+        <el-button
+          type="primary"
+          plain
+          @click="router.push({ name: 'menus-edit', params: { id: row.id } })"
+        >
+          编辑
+        </el-button>
         <el-button type="danger" plain @click="handleDelete(row.id)">删除</el-button>
       </el-table-column>
     </el-table>

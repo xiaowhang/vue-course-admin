@@ -11,13 +11,13 @@
             <el-icon><EpSetting /></el-icon>
             <span>权限管理</span>
           </template>
+          <el-menu-item index="/menus">
+            <el-icon><EpSetting /></el-icon>
+            <template #title>菜单列表</template>
+          </el-menu-item>
           <el-menu-item index="/roles">
             <el-icon><EpSetting /></el-icon>
             <template #title>角色列表</template>
-          </el-menu-item>
-          <el-menu-item index="/menu">
-            <el-icon><EpSetting /></el-icon>
-            <template #title>菜单列表</template>
           </el-menu-item>
           <el-menu-item index="/resources">
             <el-icon><EpSetting /></el-icon>

@@ -22,6 +22,11 @@ const router = createRouter({
           name: 'index',
           component: () => import('@/views/IndexView.vue'),
         },
+        {
+          path: 'menus',
+          name: 'menus',
+          component: () => import('@/views/menu/MenuView.vue'),
+        },
       ],
     },
     {

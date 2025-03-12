@@ -1,6 +1,6 @@
 <template>
   <el-main>
-    <el-scrollbar>
+    <el-scrollbar :view-style="viewStyle">
       <RouterView />
     </el-scrollbar>
   </el-main>
@@ -10,6 +10,15 @@
 defineOptions({
   name: 'AppMain',
 })
+
+const viewStyle = {
+  minHeight: '100%',
+  padding: '20px',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  backgroundColor: '#e6e8eb',
+}
 </script>
 
 <style scoped lang="scss">

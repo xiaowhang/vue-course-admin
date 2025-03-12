@@ -1,7 +1,9 @@
 <template>
   <el-card>
     <template #header>
-      <el-button type="primary" :icon="Plus">添加菜单</el-button>
+      <el-button type="primary" :icon="Plus" @click="router.push({ name: 'menus-create' })">
+        添加菜单
+      </el-button>
     </template>
     <el-table :data="menus" border style="width: 100%">
       <el-table-column type="index" label="编号" width="60" align="center" />
@@ -19,24 +21,24 @@
 
 <script setup lang="ts">
 import { Plus } from '@element-plus/icons-vue'
-import { getAllMenus } from '@/api/menus'
-import type { MenuType } from '@/api/menus'
+import { useMenus } from '@/composables'
 
 defineOptions({
   name: 'MenuView',
 })
 
-const menus = ref([] as MenuType[])
+const { menus, getMenus } = useMenus()
 
-onMounted(async () => {
-  const { data } = await getAllMenus()
-  if (data.code === '000000') menus.value = data.data
+onMounted(() => {
+  getMenus()
 })
+
+const router = useRouter()
 </script>
 
 <style scoped lang="scss">
 .el-card {
   margin: 20px;
-  width: auto;
+  width: 100%;
 }
 </style>

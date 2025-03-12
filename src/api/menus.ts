@@ -30,3 +30,16 @@ export const getAllMenus = () => {
     url: '/api/boss/menu/getAll',
   })
 }
+
+export type saveMenuParams = Pick<
+  MenuType,
+  'parentId' | 'name' | 'href' | 'icon' | 'orderNum' | 'description' | 'shown'
+> & { id?: number }
+
+export const saveMenu = (data: saveMenuParams) => {
+  return request<ApiResponse<boolean>>({
+    method: 'POST',
+    url: '/api/boss/menu/saveOrUpdate',
+    data,
+  })
+}

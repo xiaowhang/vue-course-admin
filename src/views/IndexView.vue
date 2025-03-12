@@ -8,7 +8,6 @@
 
 <style scoped lang="scss">
 div {
-  height: 100vh;
   background-color: #ccc;
 }
 </style>

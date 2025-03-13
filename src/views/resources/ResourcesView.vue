@@ -12,7 +12,7 @@
           <el-select v-model="queryParameters.categoryId" placeholder="资源分类">
             <el-option label="不限" :value="-1" />
             <el-option
-              v-for="category in allResourceCategories"
+              v-for="category in ResourceCategories"
               :label="category.name"
               :value="category.id"
               :key="category.id"
@@ -27,7 +27,7 @@
     </template>
 
     <template #default>
-      <el-button @click="dialogRef?.handleCreate">添加</el-button>
+      <el-button @click="handleCreate">添加</el-button>
       <el-button @click="router.push({ name: 'resource-category' })">资源类别 </el-button>
       <el-table :data="resources?.records" border style="width: 100%">
         <el-table-column type="index" label="序号" width="60" align="center" />
@@ -42,8 +42,8 @@
           align="center"
         />
         <el-table-column label="操作" width="180" align="center" #default="{ row }">
-          <el-button type="primary" plain @click="handleEdit(row.id)"> 编辑 </el-button>
-          <el-button type="danger" plain @click="handleDelete(row.id)">删除</el-button>
+          <el-button @click="handleEdit(row)" type="primary" plain> 编辑 </el-button>
+          <el-button @click="handleDelete(row.id)" type="danger" plain>删除</el-button>
         </el-table-column>
       </el-table>
     </template>
@@ -61,7 +61,7 @@
       />
     </template>
   </el-card>
-  <DialogCreateEdit ref="dialogRef" />
+  <DialogCreateEdit />
 </template>
 
 <script setup lang="ts">
@@ -69,7 +69,7 @@ import { useResources, useResourceCategory } from '@/composables'
 import { timeFormatter } from '@/utils'
 import DialogCreateEdit from '@/views/resources/DialogCreateEdit.vue'
 
-const { allResourceCategories, loadResourceCategories } = useResourceCategory()
+const { ResourceCategories, loadResourceCategories } = useResourceCategory()
 const {
   queryParameters,
   resources,
@@ -80,6 +80,7 @@ const {
   handleCurrentChange,
   handleDelete,
   handleEdit,
+  handleCreate,
 } = useResources()
 
 const router = useRouter()
@@ -88,8 +89,6 @@ onMounted(() => {
   queryResources()
   loadResourceCategories()
 })
-
-const dialogRef = useTemplateRef<InstanceType<typeof DialogCreateEdit>>('dialogRef')
 </script>
 
 <style scoped lang="scss">

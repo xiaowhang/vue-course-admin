@@ -15,7 +15,7 @@
       <el-form-item label="资源类别" :label-width="formLabelWidth" prop="categoryId">
         <el-select v-model="form.categoryId" placeholder="资源类别">
           <el-option
-            v-for="category in allResourceCategories"
+            v-for="category in ResourceCategories"
             :label="category.name"
             :value="category.id"
             :key="category.id"
@@ -36,7 +36,7 @@
 <script setup lang="ts">
 import { useResources, useResourceCategory } from '@/composables'
 
-const { allResourceCategories, loadResourceCategories } = useResourceCategory()
+const { ResourceCategories, loadResourceCategories } = useResourceCategory()
 const {
   dialogFormVisible,
   msgText,

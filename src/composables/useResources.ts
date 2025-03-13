@@ -1,7 +1,8 @@
-import { getResources, saveResource, deleteResource, getResourcesById } from '@/api'
+import { getResources, saveResource, deleteResource } from '@/api'
 import type { getResourcesParamsType, ResourcePaginationType } from '@/api'
-import type { FormInstance } from 'element-plus'
-import { pick } from 'lodash'
+import { useDialogCreateEdit } from '@/composables'
+
+const { initializeForm, handleFormSubmit, handleFormDelete } = useDialogCreateEdit()
 
 const queryParameters = reactive<getResourcesParamsType>({
   name: '',
@@ -19,7 +20,7 @@ const resources = ref<ResourcePaginationType>({
   records: [],
 })
 
-const queryResources = async (param: getResourcesParamsType = {}) => {
+const queryResources = async (param: getResourcesParamsType = { current: 1 }) => {
   Object.assign(queryParameters, param)
   const { data } = await getResources(queryParameters)
   if (data.code === '000000') {
@@ -29,12 +30,6 @@ const queryResources = async (param: getResourcesParamsType = {}) => {
   }
 }
 
-const formRef = ref<FormInstance>()
-
-const resetForm = () => {
-  formRef.value?.resetFields()
-}
-
 const handleSizeChange = async (size: number) => {
   await queryResources({ size, current: 1 })
 }
@@ -42,88 +37,27 @@ const handleCurrentChange = async (current: number) => {
   await queryResources({ current })
 }
 
-const dialogFormVisible = ref(false)
-
-const onClose = () => {
-  dialogFormVisible.value = false
-}
-
-const msgText = ref('创建')
-
-const handleCreate = () => {
-  dialogFormVisible.value = true
-  msgText.value = '创建'
-}
-const handleEdit = async (id: number) => {
-  handleCreate()
-  msgText.value = '编辑'
-
-  const { data } = await getResourcesById(id)
-  if (data.code === '000000')
-    form.value = pick(data.data, ['id', 'name', 'categoryId', 'url', 'description'])
-  else ElMessage.error('获取资源信息失败')
-}
-
-const defaultForm = {
+initializeForm({
   name: '',
   categoryId: 1,
   url: '',
   description: '',
-}
+})
 
-const form = ref({ ...defaultForm })
+const handleSubmit = handleFormSubmit(saveResource, queryResources)
 
-const handleSubmit = async () => {
-  try {
-    const { data } = await saveResource(form.value)
-    form.value = { ...defaultForm }
-    if (data.code === '000000' && data.data) {
-      ElMessage.success(msgText.value + '成功')
-      queryResources({ current: 1 })
-    } else {
-      ElMessage.error(msgText.value + '失败')
-    }
-  } catch (error) {
-    console.log(error)
-  } finally {
-    onClose()
-  }
-}
-
-const handleDelete = async (id: number) => {
-  try {
-    await ElMessageBox.confirm('确定删除该资源吗？', '提示', {
-      confirmButtonText: '确定',
-      cancelButtonText: '取消',
-      type: 'warning',
-    })
-
-    const { data } = await deleteResource(id)
-    if (data.code === '000000' && data.data) {
-      ElMessage.success('删除资源成功')
-      queryResources()
-    } else ElMessage.error('删除资源失败')
-  } catch (error) {
-    console.error(error)
-  }
-}
+const handleDelete = handleFormDelete(deleteResource, queryResources)
 
 export const useResources = () => {
   return {
+    ...useDialogCreateEdit(),
     queryParameters,
     resources,
-    formRef,
-    dialogFormVisible,
-    msgText,
-    form,
 
     queryResources,
-    resetForm,
     handleSizeChange,
     handleCurrentChange,
-    handleCreate,
-    handleEdit,
-    onClose,
+
     handleSubmit,
     handleDelete,
   }

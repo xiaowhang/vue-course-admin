@@ -28,7 +28,7 @@
     </el-form>
     <template #footer>
       <el-button @click="onClose">取消</el-button>
-      <el-button type="primary"> 提交 </el-button>
+      <el-button @click="handleSubmit" type="primary"> 提交 </el-button>
     </template>
   </el-dialog>
 </template>
@@ -37,8 +37,16 @@
 import { useResources, useResourceCategory } from '@/composables'
 
 const { allResourceCategories, loadResourceCategories } = useResourceCategory()
-const { dialogFormVisible, msgText, handleCreate, handleEdit, form, onClose, formRef } =
-  useResources()
+const {
+  dialogFormVisible,
+  msgText,
+  handleCreate,
+  handleEdit,
+  form,
+  onClose,
+  formRef,
+  handleSubmit,
+} = useResources()
 
 onMounted(() => {
   loadResourceCategories()

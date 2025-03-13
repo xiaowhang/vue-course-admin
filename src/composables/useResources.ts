@@ -1,5 +1,5 @@
-import { getResources } from '@/api'
-import type { ParamsType, ResourceType } from '@/api'
+import { getResources, saveResource } from '@/api'
+import type { ParamsType, PaginationType } from '@/api'
 import type { FormInstance } from 'element-plus'
 
 const queryParameters = reactive<ParamsType>({
@@ -10,7 +10,7 @@ const queryParameters = reactive<ParamsType>({
   size: 5,
 })
 
-const resources = ref<ResourceType>({
+const resources = ref<PaginationType>({
   size: 5,
   current: 1,
   pages: 1,
@@ -35,7 +35,7 @@ const resetForm = () => {
 }
 
 const handleSizeChange = (size: number) => {
-  queryResources({ size })
+  queryResources({ size, current: 1 })
 }
 const handleCurrentChange = (current: number) => {
   queryResources({ current })
@@ -65,6 +65,22 @@ const form = reactive({
   description: '',
 })
 
+const handleSubmit = async () => {
+  try {
+    const { data } = await saveResource(form)
+    if (data.code === '000000' && data.data) {
+      ElMessage.success(msgText.value + '成功')
+      queryResources({ current: 1 })
+    } else {
+      ElMessage.error(msgText.value + '失败')
+    }
+  } catch (error) {
+    console.log(error)
+  } finally {
+    onClose()
+  }
+}
+
 export const useResources = () => {
   return {
     queryParameters,
@@ -81,5 +97,6 @@ export const useResources = () => {
     handleCreate,
     handleEdit,
     onClose,
+    handleSubmit,
   }
 }

@@ -19,33 +19,47 @@ export type ParamsType = Partial<{
 }>
 
 export type ResourceType = {
+  categoryId: number
+  createdBy: string
+  createdTime: string
+  description: string
+  id: number
+  name: string
+  operatorId: number
+  selected: boolean
+  updatedBy: string
+  updatedTime: string
+  url: string
+}
+
+export type PaginationType = {
   current: number
   hitCount?: boolean
   optimizeCountSql?: boolean
   orders?: any[]
   pages: number
-  records: {
-    categoryId: number
-    createdBy: string
-    createdTime: string
-    description: string
-    id: number
-    name: string
-    operatorId: number
-    selected: boolean
-    updatedBy: string
-    updatedTime: string
-    url: string
-  }[]
+  records: ResourceType[]
   searchCount?: boolean
   size: number
   total: number
 }
 
 export const getResources = (data: ParamsType) => {
-  return request<ApiResponse<ResourceType>>({
+  return request<ApiResponse<PaginationType>>({
     method: 'POST',
     url: '/api/boss/resource/getResourcePages',
+    data,
+  })
+}
+
+export type ResourceFormType = Partial<
+  Pick<ResourceType, 'id' | 'categoryId' | 'description' | 'name' | 'url'>
+>
+
+export const saveResource = (data: ResourceFormType) => {
+  return request<ApiResponse<boolean>>({
+    method: 'POST',
+    url: '/api/boss/resource/saveOrUpdate',
     data,
   })
 }

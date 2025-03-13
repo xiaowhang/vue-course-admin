@@ -25,3 +25,15 @@ export const getResourceCategories = () => {
     url: '/api/boss/resource/category/getAll',
   })
 }
+
+type ResourceCategoryParamsType = Pick<ResourceCategoryType, 'name' | 'sort'> & {
+  id?: number
+}
+
+export const saveResourceCategory = (data: ResourceCategoryParamsType) => {
+  return request<ApiResponse<boolean>>({
+    method: 'POST',
+    url: '/api/boss/resource/category/saveOrderUpdate',
+    data,
+  })
+}

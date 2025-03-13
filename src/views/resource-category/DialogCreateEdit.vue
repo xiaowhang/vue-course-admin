@@ -10,8 +10,8 @@
     </el-form>
     <template #footer>
       <div class="dialog-footer">
-        <el-button @click="close">取消</el-button>
-        <el-button type="primary" @click="close"> 提交 </el-button>
+        <el-button @click="onClose">取消</el-button>
+        <el-button type="primary" @click="handleSubmit"> 提交 </el-button>
       </div>
     </template>
   </el-dialog>
@@ -19,6 +19,10 @@
 
 <script setup lang="ts">
 import type { FormInstance } from 'element-plus'
+import { saveResourceCategory } from '@/api'
+import { useResourceCategory } from '@/composables'
+
+const { loadResourceCategories } = useResourceCategory()
 
 const dialogFormVisible = ref(false)
 const formLabelWidth = '80px'
@@ -30,9 +34,25 @@ const form = reactive({
 
 const formRef = ref<FormInstance>()
 
-const close = () => {
+const onClose = () => {
   dialogFormVisible.value = false
   formRef.value?.resetFields()
+}
+
+const handleSubmit = async () => {
+  try {
+    const { data } = await saveResourceCategory(form)
+    if (data.code === '000000' && data.data) {
+      ElMessage.success(msgText.value + '成功')
+      loadResourceCategories()
+    } else {
+      ElMessage.error(msgText.value + '失败')
+    }
+  } catch (error) {
+    console.log(error)
+  } finally {
+    onClose()
+  }
 }
 
 const msgText = ref('创建')

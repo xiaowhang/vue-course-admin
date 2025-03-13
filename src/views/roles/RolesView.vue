@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <template #header>
-      <el-button>添加角色</el-button>
+      <el-button @click="dialogRef?.handleCreate">添加角色</el-button>
       <el-form :inline="true" :model="queryParameters" ref="formRef">
         <el-form-item label="筛选" prop="name">
           <el-input v-model="queryParameters.name" placeholder="角色名称" clearable />
@@ -47,17 +47,21 @@
       />
     </template>
   </el-card>
+  <DialogCreateEdit ref="dialogRef" />
 </template>
 
 <script setup lang="ts">
 import { useRoles } from '@/composables'
 import { timeFormatter } from '@/utils'
+import DialogCreateEdit from '@/views/roles/DialogCreateEdit.vue'
 
 const { queryParameters, roles, queryRoles, handleSizeChange, handleCurrentChange } = useRoles()
 
 onMounted(() => {
   queryRoles()
 })
+
+const dialogRef = useTemplateRef<InstanceType<typeof DialogCreateEdit>>('dialogRef')
 </script>
 
 <style scoped lang="scss">

@@ -20,8 +20,8 @@
         <el-button type="danger" plain @click="handleDelete(row.id)">删除</el-button>
       </el-table-column>
     </el-table>
-    <DialogCreateEdit ref="dialogRef" />
   </el-card>
+  <DialogCreateEdit ref="dialogRef" />
 </template>
 
 <script setup lang="ts">

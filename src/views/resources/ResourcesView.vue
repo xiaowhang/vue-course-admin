@@ -27,7 +27,7 @@
     </template>
 
     <template #default>
-      <el-button>添加</el-button>
+      <el-button @click="dialogRef?.handleCreate">添加</el-button>
       <el-button @click="router.push({ name: 'resource-category' })">资源类别 </el-button>
       <el-table :data="resources?.records" border style="width: 100%">
         <el-table-column type="index" label="序号" width="60" align="center" />
@@ -61,11 +61,13 @@
       />
     </template>
   </el-card>
+  <DialogCreateEdit ref="dialogRef" />
 </template>
 
 <script setup lang="ts">
 import { useResources, useResourceCategory } from '@/composables'
 import { timeFormatter } from '@/utils'
+import DialogCreateEdit from '@/views/resources/DialogCreateEdit.vue'
 
 const {
   queryParameters,
@@ -84,6 +86,8 @@ onMounted(() => {
   queryResources()
   loadResourceCategories()
 })
+
+const dialogRef = useTemplateRef<InstanceType<typeof DialogCreateEdit>>('dialogRef')
 </script>
 
 <style scoped lang="scss">

@@ -41,15 +41,38 @@ const handleCurrentChange = (current: number) => {
   queryResources({ current })
 }
 
+const dialogFormVisible = ref(false)
+
+const onClose = () => {
+  dialogFormVisible.value = false
+  formRef.value?.resetFields()
+}
+
+const msgText = ref('创建')
+
+const handleCreate = () => {
+  dialogFormVisible.value = true
+  msgText.value = '创建'
+}
+const handleEdit = (id: number) => {
+  handleCreate()
+  msgText.value = '编辑'
+}
+
 export const useResources = () => {
   return {
     queryParameters,
     resources,
     formRef,
+    dialogFormVisible,
+    onClose,
+    msgText,
 
     queryResources,
     resetForm,
     handleSizeChange,
     handleCurrentChange,
+    handleCreate,
+    handleEdit,
   }
 }

@@ -70,3 +70,10 @@ export const deleteResource = (id: number) => {
     url: `/api/boss/resource/${id}`,
   })
 }
+
+export const getResourcesById = (id: number) => {
+  return request<ApiResponse<ResourceType>>({
+    method: 'GET',
+    url: `/api/boss/resource/${id}`,
+  })
+}

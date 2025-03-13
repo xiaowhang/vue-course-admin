@@ -1,4 +1,4 @@
-import { getResources, saveResource, deleteResource } from '@/api'
+import { getResources, saveResource, deleteResource, getResourcesById } from '@/api'
 import type { ParamsType, PaginationType } from '@/api'
 import type { FormInstance } from 'element-plus'
 
@@ -53,9 +53,13 @@ const handleCreate = () => {
   dialogFormVisible.value = true
   msgText.value = '创建'
 }
-const handleEdit = (id: number) => {
+const handleEdit = async (id: number) => {
   handleCreate()
   msgText.value = '编辑'
+
+  const { data } = await getResourcesById(id)
+  if (data.code === '000000') Object.assign(form, data.data)
+  else ElMessage.error('获取资源信息失败')
 }
 
 const form = reactive({

@@ -42,7 +42,7 @@
           align="center"
         />
         <el-table-column label="操作" width="180" align="center" #default="{ row }">
-          <el-button type="primary" plain> 编辑 </el-button>
+          <el-button type="primary" plain @click="handleEdit(row.id)"> 编辑 </el-button>
           <el-button type="danger" plain @click="handleDelete(row.id)">删除</el-button>
         </el-table-column>
       </el-table>
@@ -79,6 +79,7 @@ const {
   handleSizeChange,
   handleCurrentChange,
   handleDelete,
+  handleEdit,
 } = useResources()
 
 const router = useRouter()

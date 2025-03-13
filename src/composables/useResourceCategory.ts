@@ -1,6 +1,7 @@
 import { getResourceCategories, saveResourceCategory, deleteResourceCategory } from '@/api'
 import type { ResourceCategoryType } from '@/api'
 import type { FormInstance } from 'element-plus'
+import { pick } from 'lodash'
 
 const allResourceCategories = ref([] as ResourceCategoryType[])
 
@@ -13,10 +14,12 @@ const loadResourceCategories = async () => {
   }
 }
 
-const form = reactive({
+const defaultForm = {
   name: '',
   sort: 0,
-})
+}
+
+const form = ref({ ...defaultForm })
 
 const dialogFormVisible = ref(false)
 
@@ -28,7 +31,8 @@ const onClose = () => {
 
 const handleSubmit = async () => {
   try {
-    const { data } = await saveResourceCategory(form)
+    const { data } = await saveResourceCategory(form.value)
+    form.value = { ...defaultForm }
     if (data.code === '000000' && data.data) {
       ElMessage.success(msgText.value + '成功')
       loadResourceCategories()
@@ -53,7 +57,7 @@ const handleEdit = (id: number) => {
   msgText.value = '编辑'
 
   const category = allResourceCategories.value.find((item) => item.id === id)
-  Object.assign(form, category)
+  if (category) form.value = pick(category, ['name', 'sort'])
 }
 
 const handleDelete = async (id: number) => {

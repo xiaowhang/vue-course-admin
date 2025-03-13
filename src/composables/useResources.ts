@@ -1,6 +1,7 @@
 import { getResources, saveResource, deleteResource, getResourcesById } from '@/api'
 import type { ParamsType, PaginationType } from '@/api'
 import type { FormInstance } from 'element-plus'
+import { pick } from 'lodash'
 
 const queryParameters = reactive<ParamsType>({
   name: '',
@@ -58,20 +59,24 @@ const handleEdit = async (id: number) => {
   msgText.value = '编辑'
 
   const { data } = await getResourcesById(id)
-  if (data.code === '000000') Object.assign(form, data.data)
+  if (data.code === '000000')
+    form.value = pick(data.data, ['id', 'name', 'categoryId', 'url', 'description'])
   else ElMessage.error('获取资源信息失败')
 }
 
-const form = reactive({
+const defaultForm = {
   name: '',
   categoryId: 1,
   url: '',
   description: '',
-})
+}
+
+const form = ref({ ...defaultForm })
 
 const handleSubmit = async () => {
   try {
-    const { data } = await saveResource(form)
+    const { data } = await saveResource(form.value)
+    form.value = { ...defaultForm }
     if (data.code === '000000' && data.data) {
       ElMessage.success(msgText.value + '成功')
       queryResources({ current: 1 })

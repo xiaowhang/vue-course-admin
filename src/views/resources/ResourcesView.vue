@@ -43,7 +43,7 @@
         />
         <el-table-column label="操作" width="180" align="center" #default="{ row }">
           <el-button type="primary" plain> 编辑 </el-button>
-          <el-button type="danger" plain>删除</el-button>
+          <el-button type="danger" plain @click="handleDelete(row.id)">删除</el-button>
         </el-table-column>
       </el-table>
     </template>
@@ -69,6 +69,7 @@ import { useResources, useResourceCategory } from '@/composables'
 import { timeFormatter } from '@/utils'
 import DialogCreateEdit from '@/views/resources/DialogCreateEdit.vue'
 
+const { allResourceCategories, loadResourceCategories } = useResourceCategory()
 const {
   queryParameters,
   resources,
@@ -77,8 +78,8 @@ const {
   resetForm,
   handleSizeChange,
   handleCurrentChange,
+  handleDelete,
 } = useResources()
-const { allResourceCategories, loadResourceCategories } = useResourceCategory()
 
 const router = useRouter()
 

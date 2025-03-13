@@ -63,3 +63,10 @@ export const saveResource = (data: ResourceFormType) => {
     data,
   })
 }
+
+export const deleteResource = (id: number) => {
+  return request<ApiResponse<boolean>>({
+    method: 'DELETE',
+    url: `/api/boss/resource/${id}`,
+  })
+}

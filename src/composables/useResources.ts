@@ -1,4 +1,4 @@
-import { getResources, saveResource } from '@/api'
+import { getResources, saveResource, deleteResource } from '@/api'
 import type { ParamsType, PaginationType } from '@/api'
 import type { FormInstance } from 'element-plus'
 
@@ -81,6 +81,24 @@ const handleSubmit = async () => {
   }
 }
 
+const handleDelete = async (id: number) => {
+  try {
+    await ElMessageBox.confirm('确定删除该资源吗？', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
+
+    const { data } = await deleteResource(id)
+    if (data.code === '000000' && data.data) {
+      ElMessage.success('删除资源成功')
+      queryResources()
+    } else ElMessage.error('删除资源失败')
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 export const useResources = () => {
   return {
     queryParameters,
@@ -98,5 +116,6 @@ export const useResources = () => {
     handleEdit,
     onClose,
     handleSubmit,
+    handleDelete,
   }
 }

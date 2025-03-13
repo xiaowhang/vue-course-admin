@@ -1,9 +1,9 @@
 import { getResources, saveResource, deleteResource, getResourcesById } from '@/api'
-import type { ParamsType, PaginationType } from '@/api'
+import type { getResourcesParamsType, ResourcePaginationType } from '@/api'
 import type { FormInstance } from 'element-plus'
 import { pick } from 'lodash'
 
-const queryParameters = reactive<ParamsType>({
+const queryParameters = reactive<getResourcesParamsType>({
   name: '',
   url: '',
   categoryId: -1,
@@ -11,7 +11,7 @@ const queryParameters = reactive<ParamsType>({
   size: 5,
 })
 
-const resources = ref<PaginationType>({
+const resources = ref<ResourcePaginationType>({
   size: 5,
   current: 1,
   pages: 1,
@@ -19,7 +19,7 @@ const resources = ref<PaginationType>({
   records: [],
 })
 
-const queryResources = async (param: ParamsType = {}) => {
+const queryResources = async (param: getResourcesParamsType = {}) => {
   Object.assign(queryParameters, param)
   const { data } = await getResources(queryParameters)
   if (data.code === '000000') {

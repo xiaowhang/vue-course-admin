@@ -47,6 +47,11 @@ const router = createRouter({
           name: 'resources',
           component: () => import('@/views/resources/ResourcesView.vue'),
         },
+        {
+          path: 'roles',
+          name: 'roles',
+          component: () => import('@/views/roles/RolesView.vue'),
+        },
       ],
     },
     {

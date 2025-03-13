@@ -7,7 +7,7 @@ type ApiResponse<T> = {
   time: string
 }
 
-export type ParamsType = Partial<{
+export type getResourcesParamsType = Partial<{
   id: number
   name: string
   startCreateTime: string
@@ -32,7 +32,7 @@ export type ResourceType = {
   url: string
 }
 
-export type PaginationType = {
+export type ResourcePaginationType = {
   current: number
   hitCount?: boolean
   optimizeCountSql?: boolean
@@ -44,8 +44,8 @@ export type PaginationType = {
   total: number
 }
 
-export const getResources = (data: ParamsType) => {
-  return request<ApiResponse<PaginationType>>({
+export const getResources = (data: getResourcesParamsType) => {
+  return request<ApiResponse<ResourcePaginationType>>({
     method: 'POST',
     url: '/api/boss/resource/getResourcePages',
     data,

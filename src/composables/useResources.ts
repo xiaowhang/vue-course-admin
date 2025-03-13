@@ -28,10 +28,10 @@ const queryResources = async (param: ParamsType = {}) => {
   }
 }
 
-const fromRef = ref<FormInstance>()
+const formRef = ref<FormInstance>()
 
 const resetForm = () => {
-  fromRef.value?.resetFields()
+  formRef.value?.resetFields()
 }
 
 const handleSizeChange = (size: number) => {
@@ -45,7 +45,7 @@ export const useResources = () => {
   return {
     queryParameters,
     resources,
-    fromRef,
+    formRef,
 
     queryResources,
     resetForm,

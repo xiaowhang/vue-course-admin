@@ -20,9 +20,9 @@ export type ParamsType = Partial<{
 
 export type ResourceType = {
   current: number
-  hitCount: boolean
-  optimizeCountSql: boolean
-  orders: any[]
+  hitCount?: boolean
+  optimizeCountSql?: boolean
+  orders?: any[]
   pages: number
   records: {
     categoryId: number
@@ -37,7 +37,7 @@ export type ResourceType = {
     updatedTime: string
     url: string
   }[]
-  searchCount: boolean
+  searchCount?: boolean
   size: number
   total: number
 }

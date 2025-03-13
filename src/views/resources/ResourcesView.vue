@@ -47,6 +47,19 @@
         </el-table-column>
       </el-table>
     </template>
+
+    <template #footer>
+      <el-pagination
+        v-model:page-size="resources.size"
+        v-model:current-page="resources.current"
+        size="large"
+        layout="total, sizes, prev, pager, next, jumper"
+        :page-sizes="[5, 10, 20, 50]"
+        :total="resources?.total"
+        @size-change="handleSizeChange"
+        @current-change="handleCurrentChange"
+      />
+    </template>
   </el-card>
 </template>
 
@@ -54,7 +67,15 @@
 import { useResources, useResourceCategory } from '@/composables'
 import { timeFormatter } from '@/utils'
 
-const { queryParameters, resources, queryResources, fromRef, resetForm } = useResources()
+const {
+  queryParameters,
+  resources,
+  queryResources,
+  fromRef,
+  resetForm,
+  handleSizeChange,
+  handleCurrentChange,
+} = useResources()
 const { allResourceCategories, loadResourceCategories } = useResourceCategory()
 
 const router = useRouter()

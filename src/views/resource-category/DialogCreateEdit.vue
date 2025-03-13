@@ -1,5 +1,10 @@
 <template>
-  <el-dialog v-model="dialogFormVisible" :title="msgText + '资源类别'" width="500">
+  <el-dialog
+    v-model="dialogFormVisible"
+    :title="msgText + '资源类别'"
+    width="500"
+    @close="formRef?.resetFields()"
+  >
     <el-form :model="form" ref="formRef">
       <el-form-item label="类别名称" :label-width="formLabelWidth" prop="name">
         <el-input v-model="form.name" autocomplete="off" />

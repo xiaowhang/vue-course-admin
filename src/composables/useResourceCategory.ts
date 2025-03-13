@@ -24,7 +24,6 @@ const formRef = ref<FormInstance>()
 
 const onClose = () => {
   dialogFormVisible.value = false
-  formRef.value?.resetFields()
 }
 
 const handleSubmit = async () => {

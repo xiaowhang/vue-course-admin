@@ -45,7 +45,6 @@ const dialogFormVisible = ref(false)
 
 const onClose = () => {
   dialogFormVisible.value = false
-  formRef.value?.resetFields()
 }
 
 const msgText = ref('创建')
@@ -72,7 +71,6 @@ export const useResources = () => {
     resources,
     formRef,
     dialogFormVisible,
-    onClose,
     msgText,
     form,
 
@@ -82,5 +80,6 @@ export const useResources = () => {
     handleCurrentChange,
     handleCreate,
     handleEdit,
+    onClose,
   }
 }

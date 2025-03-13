@@ -1,11 +1,9 @@
 <template>
-  <RouterView />
+  <el-config-provider :locale="zhCn">
+    <RouterView />
+  </el-config-provider>
 </template>
 
 <script setup lang="ts">
-import request from './utils/request'
-
-// request.get('/api/front/ad/getAdList').then((res) => {
-//   console.log(res)
-// })
+import zhCn from 'element-plus/es/locale/lang/zh-cn'
 </script>

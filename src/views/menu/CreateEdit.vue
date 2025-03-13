@@ -48,7 +48,7 @@ const { getMenus, topMenus, onSubmit, formRef, form, resetForm, getMenusInfoById
 onMounted(() => {
   getMenus()
   const route = useRoute()
-  getMenusInfoById(Number(route.params.id))
+  if (route.params.id) getMenusInfoById(Number(route.params.id))
 })
 
 onBeforeUnmount(() => {

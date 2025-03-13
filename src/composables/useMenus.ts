@@ -64,8 +64,6 @@ const handleDelete = async (id: number) => {
 }
 
 const getMenusInfoById = async (id: number) => {
-  if (isCreate.value) return
-
   const { data } = await getEditMenuInfo(id)
   if (data.code === '000000') {
     Object.assign(form, data.data.menuInfo)

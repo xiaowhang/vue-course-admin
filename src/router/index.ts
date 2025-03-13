@@ -37,6 +37,11 @@ const router = createRouter({
           name: 'menus-edit',
           component: () => import('@/views/menu/CreateEdit.vue'),
         },
+        {
+          path: 'resource-category',
+          name: 'resource-category',
+          component: () => import('@/views/resource-category/ResourceCategoryView.vue'),
+        },
       ],
     },
     {

@@ -9,10 +9,8 @@
       </el-form-item>
     </el-form>
     <template #footer>
-      <div class="dialog-footer">
-        <el-button @click="onClose">取消</el-button>
-        <el-button type="primary" @click="handleSubmit"> 提交 </el-button>
-      </div>
+      <el-button @click="onClose">取消</el-button>
+      <el-button type="primary" @click="handleSubmit"> 提交 </el-button>
     </template>
   </el-dialog>
 </template>

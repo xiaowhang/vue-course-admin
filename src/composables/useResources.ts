@@ -59,6 +59,13 @@ const handleEdit = (id: number) => {
   msgText.value = '编辑'
 }
 
+const form = reactive({
+  name: '',
+  categoryId: 1,
+  url: '',
+  description: '',
+})
+
 export const useResources = () => {
   return {
     queryParameters,
@@ -67,6 +74,7 @@ export const useResources = () => {
     dialogFormVisible,
     onClose,
     msgText,
+    form,
 
     queryResources,
     resetForm,

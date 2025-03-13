@@ -35,11 +35,11 @@ const resetForm = () => {
   formRef.value?.resetFields()
 }
 
-const handleSizeChange = (size: number) => {
-  queryResources({ size, current: 1 })
+const handleSizeChange = async (size: number) => {
+  await queryResources({ size, current: 1 })
 }
-const handleCurrentChange = (current: number) => {
-  queryResources({ current })
+const handleCurrentChange = async (current: number) => {
+  await queryResources({ current })
 }
 
 const dialogFormVisible = ref(false)

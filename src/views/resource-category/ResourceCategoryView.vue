@@ -17,7 +17,7 @@
       <el-table-column prop="sort" label="排序" min-width="60" align="center" />
       <el-table-column label="操作" width="180" align="center" #default="{ row }">
         <el-button type="primary" plain @click="dialogRef?.handleEdit(row.id)"> 编辑 </el-button>
-        <el-button type="danger" plain>删除</el-button>
+        <el-button type="danger" plain @click="handleDelete(row.id)">删除</el-button>
       </el-table-column>
     </el-table>
     <DialogCreateEdit ref="dialogRef" />
@@ -30,7 +30,7 @@ import { Plus } from '@element-plus/icons-vue'
 import { timeFormatter } from '@/utils'
 import DialogCreateEdit from '@/views/resource-category/DialogCreateEdit.vue'
 
-const { allResourceCategories, loadResourceCategories } = useResourceCategory()
+const { allResourceCategories, loadResourceCategories, handleDelete } = useResourceCategory()
 
 onMounted(() => {
   loadResourceCategories()

@@ -1,4 +1,4 @@
-import { getResourceCategories, saveResourceCategory } from '@/api'
+import { getResourceCategories, saveResourceCategory, deleteResourceCategory } from '@/api'
 import type { ResourceCategoryType } from '@/api'
 import type { FormInstance } from 'element-plus'
 
@@ -54,6 +54,26 @@ const handleEdit = (id: number) => {
   msgText.value = '编辑'
 }
 
+const handleDelete = async (id: number) => {
+  try {
+    await ElMessageBox.confirm('确定删除该资源类型吗？', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
+
+    const { data } = await deleteResourceCategory(id)
+    if (data.code === '000000' && data.data) {
+      ElMessage.success('删除资源类型成功')
+      loadResourceCategories()
+    } else ElMessage.error('删除资源类型失败')
+  } catch (error) {
+    if (error !== 'cancel') {
+      console.error('取消删除失败', error)
+    }
+  }
+}
+
 export const useResourceCategory = () => {
   return {
     allResourceCategories,
@@ -67,5 +87,6 @@ export const useResourceCategory = () => {
     handleSubmit,
     handleCreate,
     handleEdit,
+    handleDelete,
   }
 }

@@ -37,3 +37,10 @@ export const saveResourceCategory = (data: ResourceCategoryParamsType) => {
     data,
   })
 }
+
+export const deleteResourceCategory = (id: number) => {
+  return request<ApiResponse<boolean>>({
+    method: 'DELETE',
+    url: `/api/boss/resource/category/${id}`,
+  })
+}

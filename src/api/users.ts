@@ -1,17 +1,17 @@
 import { request } from '@/utils'
 import { useAuthStore } from '@/stores'
 
-type LoginInfoType = {
+type ApiResponse<T> = {
+  code: string
+  data: T
+  mesg: string
+  time: string
+}
+
+export type LoginInfoType = {
   phone: string
   code?: string
   password: string
-}
-
-type CommonResultType<T = string> = {
-  success: boolean
-  state: number
-  message: string
-  content: T
 }
 
 // 用户登录
@@ -20,14 +20,14 @@ export const login = (data: LoginInfoType) => {
   params.append('phone', data.phone)
   params.append('password', data.password)
 
-  return request<CommonResultType>({
+  return request<ApiResponse<string>>({
     method: 'POST',
     url: '/api/front/user/login',
     data: params,
   })
 }
 
-type UserInfoType = CommonResultType<{
+export type UserInfoType = ApiResponse<{
   isUpdatePassword: boolean
   portrait: string
   userName: string
@@ -58,7 +58,7 @@ export const refreshToken = () => {
   }
 
   isRefreshing = true
-  requests = request<CommonResultType<string>>({
+  requests = request<ApiResponse<string>>({
     method: 'POST',
     url: '/api/front/user/refresh_token',
     params: {

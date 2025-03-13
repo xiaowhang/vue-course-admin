@@ -26,7 +26,7 @@ export const getResourceCategories = () => {
   })
 }
 
-type ResourceCategoryParamsType = Pick<ResourceCategoryType, 'name' | 'sort'> & {
+export type ResourceCategoryParamsType = Pick<ResourceCategoryType, 'name' | 'sort'> & {
   id?: number
 }
 

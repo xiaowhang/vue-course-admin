@@ -51,8 +51,11 @@ export const deleteMenu = (id: number) => {
   })
 }
 
-type menuListType = MenuInfoType & { subMenuList: menuListType[] | null }
-type EditMenuInfoType = ApiResponse<{ menuInfo: MenuInfoType; parentMenuList: menuListType[] }>
+export type menuListType = MenuInfoType & { subMenuList: menuListType[] | null }
+export type EditMenuInfoType = ApiResponse<{
+  menuInfo: MenuInfoType
+  parentMenuList: menuListType[]
+}>
 
 export const getEditMenuInfo = (id: number) => {
   return request<EditMenuInfoType>({

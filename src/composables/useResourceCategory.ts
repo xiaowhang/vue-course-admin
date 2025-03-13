@@ -52,6 +52,9 @@ const handleCreate = () => {
 const handleEdit = (id: number) => {
   handleCreate()
   msgText.value = '编辑'
+
+  const category = allResourceCategories.value.find((item) => item.id === id)
+  Object.assign(form, category)
 }
 
 const handleDelete = async (id: number) => {

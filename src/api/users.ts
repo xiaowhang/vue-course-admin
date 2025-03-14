@@ -67,3 +67,11 @@ export const forbidUser = (data: number) => {
     data,
   })
 }
+
+export const getRoleWithUserPermission = (userId: number) => {
+  return request<ApiResponse<any>>({
+    method: 'GET',
+    url: '/api/boss/role/getRoleWithUserPermission',
+    params: { userId },
+  })
+}

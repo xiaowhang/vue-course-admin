@@ -16,7 +16,6 @@ export const useDialogCreateEdit = (defaultFormData: any) => {
     msgText.value = '创建'
   }
   const handleEdit = (row: any) => {
-    console.log('row', row)
     handleCreate()
     msgText.value = '编辑'
 

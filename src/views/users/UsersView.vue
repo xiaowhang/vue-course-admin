@@ -52,7 +52,7 @@
           />
         </el-table-column>
         <el-table-column label="操作" width="120" align="center" #default="{ row }">
-          <el-button>分配角色</el-button>
+          <el-button @click="dialogRef?.handleEdit(row.id)">分配角色</el-button>
         </el-table-column>
       </el-table>
     </template>
@@ -70,11 +70,13 @@
       />
     </template>
   </el-card>
+  <DialogCreateEdit ref="dialogRef" />
 </template>
 
 <script setup lang="ts">
 import { useUsers } from '@/composables'
 import { formatDate } from '@/utils'
+import DialogCreateEdit from '@/views/users/DialogCreateEdit.vue'
 
 const {
   userPages,
@@ -89,6 +91,8 @@ const {
 console.log(userPages)
 
 const circleUrl = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
+
+const dialogRef = ref<InstanceType<typeof DialogCreateEdit>>()
 </script>
 
 <style scoped lang="scss">

@@ -1,4 +1,4 @@
-import { getUserPages, enableUser, forbidUser } from '@/api'
+import { getUserPages, enableUser, forbidUser, getRoleWithUserPermission } from '@/api'
 import type { UserPageParamsType, UserPageType } from '@/api'
 
 export const useUsers = () => {
@@ -54,14 +54,38 @@ export const useUsers = () => {
     getPages({ currentPage })
   }
 
+  const dialogFormVisible = ref(false)
+
+  const handleEdit = async (id: number) => {
+    dialogFormVisible.value = true
+    try {
+      const { data } = await getRoleWithUserPermission(id)
+      if (data.code === '000000') {
+        console.log(data.data)
+      } else {
+        ElMessage.error('获取用户信息失败')
+      }
+    } catch (error) {
+      ElMessage.error('获取用户信息失败')
+    }
+  }
+
+  const handleSubmit = () => {
+    ElMessage.success('提交成功')
+    dialogFormVisible.value = false
+  }
+
   return {
     queryParams,
     userPages,
     timeRange,
+    dialogFormVisible,
 
     getPages,
     handleChange,
     handleSizeChange,
     handleCurrentChange,
+    handleEdit,
+    handleSubmit,
   }
 }

@@ -97,3 +97,14 @@ export const getRoleMenus = (roleId: number) => {
     },
   })
 }
+
+export const saveRoleMenus = (roleId: number, menuIdList: number[]) => {
+  return request<ApiResponse<boolean>>({
+    method: 'POST',
+    url: '/api/boss/menu/allocateRoleMenus',
+    data: {
+      roleId,
+      menuIdList,
+    },
+  })
+}

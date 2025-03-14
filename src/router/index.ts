@@ -58,6 +58,12 @@ const router = createRouter({
           component: () => import('@/views/roles/AllocMenuView.vue'),
           props: true,
         },
+        {
+          path: 'roles/:roleId/alloc-resources',
+          name: 'alloc-resources',
+          component: () => import('@/views/roles/AllocResourcesView.vue'),
+          props: true,
+        },
       ],
     },
     {

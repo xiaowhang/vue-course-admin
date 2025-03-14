@@ -1,2 +1,4 @@
 export * from './useRoles'
 export * from './useRoleMenu'
+export * from './useRoleResource'
+export * from './useRoleResourceCategory'

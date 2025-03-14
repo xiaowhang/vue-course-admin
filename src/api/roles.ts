@@ -108,3 +108,32 @@ export const saveRoleMenus = (roleId: number, menuIdList: number[]) => {
     },
   })
 }
+
+export type roleResourcesItemType = {
+  createdBy: string
+  createdTime: string
+  id: number
+  name: string
+  operatorId: number
+  resourceList: resourceListItemType[]
+  selected: boolean
+  sort: number
+  updatedBy: string
+  updatedTime: string
+}
+
+export type resourceListItemType = Omit<roleResourcesItemType, 'resourceList' | 'sort'> & {
+  categoryId: number
+  description: string
+  url: string
+}
+
+export const getRoleResources = (roleId: number) => {
+  return request<ApiResponse<roleResourcesItemType[]>>({
+    method: 'GET',
+    url: '/api/boss/resource/getRoleResources',
+    params: {
+      roleId,
+    },
+  })
+}

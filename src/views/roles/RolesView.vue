@@ -27,14 +27,21 @@
         />
         <el-table-column label="操作" width="180" align="center" #default="{ row }">
           <el-button
-            type="primary"
+            type="info"
             plain
             link
             @click="router.push({ name: 'alloc-menu', params: { roleId: row.id } })"
           >
             分配菜单
           </el-button>
-          <el-button type="primary" plain link> 分配资源 </el-button>
+          <el-button
+            type="info"
+            plain
+            link
+            @click="router.push({ name: 'alloc-resources', params: { roleId: row.id } })"
+          >
+            分配资源
+          </el-button>
           <el-button type="primary" plain link @click="dialogRef?.handleEdit(row)">
             编辑
           </el-button>

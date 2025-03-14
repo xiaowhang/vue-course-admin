@@ -1,4 +1,4 @@
-export * from './users'
+export * from './auth'
 export * from './menus'
 export * from './resource-category'
 export * from './resources'

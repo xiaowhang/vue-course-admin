@@ -2,21 +2,21 @@ import type { roleResourcesItemType } from '@/api'
 import type { CheckboxValueType } from 'element-plus'
 
 export const useRoleResourceCategory = (roleResource: roleResourcesItemType) => {
-  const checkAll = ref(false)
-  const isIndeterminate = ref(true)
   const resourceList = computed(() => roleResource.resourceList)
   const resourceIds = computed(() => resourceList.value.map((resource) => resource.id))
   const checkedList = ref([] as number[])
 
   const handleCheckAllChange = (val: CheckboxValueType) => {
     checkedList.value = val ? resourceIds.value : []
-    isIndeterminate.value = false
   }
-  const handleCheckedCitiesChange = (value: CheckboxValueType[]) => {
-    const checkedCount = value.length
-    checkAll.value = checkedCount === resourceIds.value.length
-    isIndeterminate.value = checkedCount > 0 && checkedCount < resourceIds.value.length
-  }
+
+  const isIndeterminate = computed(
+    () => checkedList.value.length > 0 && checkedList.value.length < resourceIds.value.length,
+  )
+
+  const checkAll = computed(
+    () => checkedList.value.length === resourceIds.value.length && checkedList.value.length > 0,
+  )
 
   return {
     checkAll,
@@ -26,6 +26,5 @@ export const useRoleResourceCategory = (roleResource: roleResourcesItemType) => 
     checkedList,
 
     handleCheckAllChange,
-    handleCheckedCitiesChange,
   }
 }

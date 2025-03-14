@@ -1,5 +1,9 @@
 <template>
   <el-container direction="vertical">
+    <div>
+      <el-button @click="onSave" type="primary">保存</el-button>
+      <el-button @click="onClear" type="info" plain>清空</el-button>
+    </div>
     <AllocCategory
       v-for="roleResource in roleResources"
       :key="roleResource.id"
@@ -20,7 +24,9 @@ const props = defineProps({
   },
 })
 
-const { roleResources, loadRoleResources, handleCheckedIdsRef } = useRoleResource(props.roleId)
+const { roleResources, loadRoleResources, handleCheckedIdsRef, onSave, onClear } = useRoleResource(
+  props.roleId,
+)
 
 onMounted(async () => {
   await loadRoleResources()

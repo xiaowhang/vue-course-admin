@@ -19,11 +19,21 @@ export const useRoleResource = (roleId: number) => {
     checkedIdsRefs.value.push(checkedIdsRef)
   }
 
+  const onSave = async () => {}
+
+  const onClear = () => {
+    checkedIdsRefs.value.forEach((checkedIdsRef) => {
+      checkedIdsRef.value = []
+    })
+  }
+
   return {
     roleResources,
     loadRoleResources,
     checkedIdsRefs,
 
     handleCheckedIdsRef,
+    onSave,
+    onClear,
   }
 }

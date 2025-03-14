@@ -10,7 +10,7 @@
         {{ roleResource.name }}
       </el-checkbox>
     </template>
-    <el-checkbox-group v-model="checkedList" @change="handleCheckedCitiesChange">
+    <el-checkbox-group v-model="checkedList">
       <el-row>
         <el-col :span="6" v-for="resource in resourceList" :key="resource.id">
           <el-checkbox :label="resource.name" :value="resource.id" />
@@ -38,7 +38,7 @@ const {
   checkedList,
 
   handleCheckAllChange,
-  handleCheckedCitiesChange,
+  // handleCheckedCitiesChange,
 } = useRoleResourceCategory(props.roleResource)
 
 onMounted(() => {

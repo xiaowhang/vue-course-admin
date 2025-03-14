@@ -52,6 +52,7 @@ declare module 'vue' {
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
     ElText: typeof import('element-plus/es')['ElText']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
+    ElTree: typeof import('element-plus/es')['ElTree']
     EpArrowDown: typeof import('~icons/ep/arrow-down')['default']
     EpEdit: typeof import('~icons/ep/edit')['default']
     EpExpand: typeof import('~icons/ep/expand')['default']

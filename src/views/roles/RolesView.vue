@@ -26,7 +26,14 @@
           align="center"
         />
         <el-table-column label="操作" width="180" align="center" #default="{ row }">
-          <el-button type="primary" plain link> 分配菜单 </el-button>
+          <el-button
+            type="primary"
+            plain
+            link
+            @click="router.push({ name: 'alloc-menu', params: { roleId: row.id } })"
+          >
+            分配菜单
+          </el-button>
           <el-button type="primary" plain link> 分配资源 </el-button>
           <el-button type="primary" plain link @click="dialogRef?.handleEdit(row)">
             编辑
@@ -59,6 +66,7 @@ import DialogCreateEdit from '@/views/roles/DialogCreateEdit.vue'
 
 const { queryParameters, roles, queryRoles, handleSizeChange, handleCurrentChange, handleDelete } =
   useRoles()
+const router = useRouter()
 
 onMounted(() => {
   queryRoles()

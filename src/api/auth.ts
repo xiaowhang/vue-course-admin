@@ -27,7 +27,7 @@ export const login = (data: LoginInfoType) => {
   })
 }
 
-export type UserInfoType = ApiResponse<{
+export type AuthInfoType = ApiResponse<{
   isUpdatePassword: boolean
   portrait: string
   userName: string
@@ -35,7 +35,7 @@ export type UserInfoType = ApiResponse<{
 
 // 获取用户信息
 export const getUserInfo = () => {
-  return request<UserInfoType>({
+  return request<AuthInfoType>({
     method: 'GET',
     url: '/api/front/user/getInfo',
   })

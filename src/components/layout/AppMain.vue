@@ -3,6 +3,7 @@
     <el-scrollbar :view-style="viewStyle">
       <RouterView />
     </el-scrollbar>
+    <el-backtop target=".el-main .el-scrollbar__wrap" :right="60" :bottom="60" />
   </el-main>
 </template>
 

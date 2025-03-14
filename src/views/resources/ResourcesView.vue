@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <template #header>
-      <el-form :inline="true" :model="queryParameters" ref="formRef">
+      <el-form :inline="true" :model="queryParameters">
         <el-form-item label="资源名称" prop="name">
           <el-input v-model="queryParameters.name" placeholder="资源名称" clearable />
         </el-form-item>
@@ -74,7 +74,6 @@ const {
   queryParameters,
   resources,
   queryResources,
-  formRef,
   resetForm,
   handleSizeChange,
   handleCurrentChange,

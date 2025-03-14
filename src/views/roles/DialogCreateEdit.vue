@@ -21,14 +21,18 @@
 <script setup lang="ts">
 import { useRoles } from '@/composables'
 
-const { form, dialogFormVisible, msgText, handleCreate, handleEdit, onClose, resetForm } =
-  useRoles()
+const {
+  form,
+  dialogFormVisible,
+  msgText,
+  handleCreate,
+  handleEdit,
+  onClose,
+  resetForm,
+  handleSubmit,
+} = useRoles()
 
 const formLabelWidth = ref('100px')
-
-const handleSubmit = () => {
-  console.log('form', form.value)
-}
 
 defineExpose({
   handleCreate,

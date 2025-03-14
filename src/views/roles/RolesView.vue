@@ -28,8 +28,10 @@
         <el-table-column label="操作" width="180" align="center" #default="{ row }">
           <el-button type="primary" plain link> 分配菜单 </el-button>
           <el-button type="primary" plain link> 分配资源 </el-button>
-          <el-button type="primary" plain link> 编辑 </el-button>
-          <el-button type="danger" plain link>删除</el-button>
+          <el-button type="primary" plain link @click="dialogRef?.handleEdit(row)">
+            编辑
+          </el-button>
+          <el-button type="danger" plain link @click="handleDelete(row.id)">删除</el-button>
         </el-table-column>
       </el-table>
     </template>
@@ -55,7 +57,8 @@ import { useRoles } from '@/composables'
 import { timeFormatter } from '@/utils'
 import DialogCreateEdit from '@/views/roles/DialogCreateEdit.vue'
 
-const { queryParameters, roles, queryRoles, handleSizeChange, handleCurrentChange } = useRoles()
+const { queryParameters, roles, queryRoles, handleSizeChange, handleCurrentChange, handleDelete } =
+  useRoles()
 
 onMounted(() => {
   queryRoles()

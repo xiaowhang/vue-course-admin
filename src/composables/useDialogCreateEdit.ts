@@ -48,6 +48,7 @@ export const useDialogCreateEdit = (defaultFormData: any) => {
 
   const handleFormDelete = (deleteFn: any, loadFn: any) => {
     return async (id: number) => {
+      console.log('id', id)
       try {
         await ElMessageBox.confirm('确定删除吗？', '提示', {
           confirmButtonText: '确定',

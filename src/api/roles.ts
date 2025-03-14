@@ -53,3 +53,18 @@ export type roleFormType = Partial<Pick<RoleType, 'code' | 'name'>> & {
   id?: number
   description?: string
 }
+
+export const saveRole = (data: roleFormType) => {
+  return request<ApiResponse<boolean>>({
+    method: 'POST',
+    url: '/api/boss/role/saveOrUpdate',
+    data,
+  })
+}
+
+export const deleteRole = (id: number) => {
+  return request<ApiResponse<boolean>>({
+    method: 'DELETE',
+    url: `/api/boss/role/${id}`,
+  })
+}

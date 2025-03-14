@@ -1,4 +1,4 @@
-import { getRolePages } from '@/api'
+import { getRolePages, saveRole, deleteRole } from '@/api'
 import type { getRolePagesParamsType, RolePaginationType } from '@/api'
 import { useDialogCreateEdit } from '@/composables'
 
@@ -44,6 +44,10 @@ export const useRoles = () => {
     await queryRoles({ current })
   }
 
+  const handleSubmit = handleFormSubmit(saveRole, queryRoles)
+
+  const handleDelete = handleFormDelete(deleteRole, queryRoles)
+
   return {
     ...other,
 
@@ -53,5 +57,7 @@ export const useRoles = () => {
     queryRoles,
     handleSizeChange,
     handleCurrentChange,
+    handleSubmit,
+    handleDelete,
   }
 }

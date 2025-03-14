@@ -64,6 +64,11 @@ const router = createRouter({
           component: () => import('@/views/roles/AllocResourcesView.vue'),
           props: true,
         },
+        {
+          path: 'users',
+          name: 'users',
+          component: () => import('@/views/users/UsersView.vue'),
+        },
       ],
     },
     {

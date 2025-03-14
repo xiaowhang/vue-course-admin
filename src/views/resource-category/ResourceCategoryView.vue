@@ -9,7 +9,7 @@
       <el-table-column prop="name" label="类别名称" min-width="180" align="center" />
       <el-table-column
         prop="createdTime"
-        :formatter="timeFormatter"
+        :formatter="formatDateTime"
         label="创建时间"
         min-width="120"
         align="center"
@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { useResourceCategory } from '@/composables'
 import { Plus } from '@element-plus/icons-vue'
-import { timeFormatter } from '@/utils'
+import { formatDateTime } from '@/utils'
 import DialogCreateEdit from '@/views/resource-category/DialogCreateEdit.vue'
 
 const { ResourceCategories, loadResourceCategories, handleDelete } = useResourceCategory()

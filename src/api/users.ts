@@ -7,14 +7,14 @@ type ApiResponse<T> = {
   time: string
 }
 
-export type UserPageParamsType = {
+export type UserPageParamsType = Partial<{
   currentPage: number
-  pageSize?: number
-  phone?: string
-  userId?: string
-  startCreateTime?: string
-  endCreateTime?: string
-}
+  pageSize: number
+  phone: string
+  userId: string
+  startCreateTime: string
+  endCreateTime: string
+}>
 
 export type UserPageType = {
   current: number
@@ -48,6 +48,22 @@ export const getUserPages = (data: UserPageParamsType) => {
   return request<ApiResponse<UserPageType>>({
     method: 'POST',
     url: '/api/boss/user/getUserPages',
+    data,
+  })
+}
+
+export const enableUser = (userId: number) => {
+  return request<ApiResponse<boolean>>({
+    method: 'GET',
+    url: '/api/boss/user/enableUser',
+    params: { userId },
+  })
+}
+
+export const forbidUser = (data: number) => {
+  return request<ApiResponse<boolean>>({
+    method: 'POST',
+    url: '/api/boss/user/forbidUser',
     data,
   })
 }

@@ -20,7 +20,7 @@
         <el-table-column prop="description" label="描述" min-width="180" align="center" />
         <el-table-column
           prop="createdTime"
-          :formatter="timeFormatter"
+          :formatter="formatDateTime"
           label="创建时间"
           min-width="90"
           align="center"
@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 import { useRoles } from '@/composables'
-import { timeFormatter } from '@/utils'
+import { formatDateTime } from '@/utils'
 import DialogCreateEdit from '@/views/roles/DialogCreateEdit.vue'
 
 const { queryParameters, roles, queryRoles, handleSizeChange, handleCurrentChange, handleDelete } =

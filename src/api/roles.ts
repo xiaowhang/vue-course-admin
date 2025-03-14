@@ -137,3 +137,14 @@ export const getRoleResources = (roleId: number) => {
     },
   })
 }
+
+export const saveRoleResources = (roleId: number, resourceIdList: number[]) => {
+  return request<ApiResponse<boolean>>({
+    method: 'POST',
+    url: '/api/boss/resource/allocateRoleResources',
+    data: {
+      roleId,
+      resourceIdList,
+    },
+  })
+}

@@ -1,5 +1,6 @@
-import { getRoleResources } from '@/api'
+import { getRoleResources, saveRoleResources } from '@/api'
 import type { roleResourcesItemType } from '@/api'
+import router from '@/router'
 
 export const useRoleResource = (roleId: number) => {
   const roleResources = ref<roleResourcesItemType[]>([])
@@ -19,7 +20,17 @@ export const useRoleResource = (roleId: number) => {
     checkedIdsRefs.value.push(checkedIdsRef)
   }
 
-  const onSave = async () => {}
+  const onSave = async () => {
+    const resourceIdList = checkedIdsRefs.value.flatMap((checkedIdsRef) => checkedIdsRef.value)
+
+    const { data } = await saveRoleResources(roleId, resourceIdList)
+    if (data.code === '000000' && data.data) {
+      ElMessage.success('保存成功')
+      router.push({ name: 'roles' })
+    } else {
+      ElMessage.error('保存失败')
+    }
+  }
 
   const onClear = () => {
     checkedIdsRefs.value.forEach((checkedIdsRef) => {

@@ -1,6 +1,5 @@
 import { getUserPages, enableUser, forbidUser } from '@/api'
 import type { UserPageParamsType, UserPageType } from '@/api'
-import type { FormInstance } from 'element-plus'
 
 export const useUsers = () => {
   const queryParams = ref({
@@ -39,12 +38,6 @@ export const useUsers = () => {
     }
   }
 
-  const formRef = ref<FormInstance>()
-
-  const onClear = () => {
-    formRef.value?.resetFields()
-  }
-
   const timeRange = ref<string[]>([])
 
   watch(timeRange, (newRange) => {
@@ -64,12 +57,10 @@ export const useUsers = () => {
   return {
     queryParams,
     userPages,
-    formRef,
     timeRange,
 
     getPages,
     handleChange,
-    onClear,
     handleSizeChange,
     handleCurrentChange,
   }

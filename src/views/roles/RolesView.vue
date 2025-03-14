@@ -4,11 +4,11 @@
       <el-button @click="dialogRef?.handleCreate">添加角色</el-button>
       <el-form :inline="true" :model="queryParameters" ref="formRef">
         <el-form-item label="筛选" prop="name">
-          <el-input v-model="queryParameters.name" placeholder="角色名称" clearable />
+          <el-input v-model="queryParameters.name" placeholder="角色名称" />
         </el-form-item>
         <el-form-item>
-          <el-button>重置</el-button>
-          <el-button type="primary">搜索</el-button>
+          <el-button @click="onClear">重置</el-button>
+          <el-button type="primary" @click="queryRoles()">搜索</el-button>
         </el-form-item>
       </el-form>
     </template>
@@ -71,13 +71,17 @@ import { useRoles } from '@/composables'
 import { formatDateTime } from '@/utils'
 import DialogCreateEdit from '@/views/roles/DialogCreateEdit.vue'
 
-const { queryParameters, roles, queryRoles, handleSizeChange, handleCurrentChange, handleDelete } =
-  useRoles()
+const {
+  queryParameters,
+  roles,
+  queryRoles,
+  handleSizeChange,
+  handleCurrentChange,
+  handleDelete,
+  formRef,
+  onClear,
+} = useRoles()
 const router = useRouter()
-
-onMounted(() => {
-  queryRoles()
-})
 
 const dialogRef = useTemplateRef<InstanceType<typeof DialogCreateEdit>>('dialogRef')
 </script>

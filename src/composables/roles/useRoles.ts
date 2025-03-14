@@ -1,6 +1,7 @@
 import { getRolePages, saveRole, deleteRole } from '@/api'
 import type { getRolePagesParamsType, RolePaginationType } from '@/api'
 import { useDialogCreateEdit } from '@/composables'
+import type { FormInstance } from 'element-plus'
 
 export const useRoles = () => {
   const defaultForm = {
@@ -37,6 +38,10 @@ export const useRoles = () => {
     }
   }
 
+  onMounted(() => {
+    queryRoles()
+  })
+
   const handleSizeChange = async (size: number) => {
     await queryRoles({ size, current: 1 })
   }
@@ -48,16 +53,24 @@ export const useRoles = () => {
 
   const handleDelete = handleFormDelete(deleteRole, queryRoles)
 
+  const formRef = ref<FormInstance>()
+
+  const onClear = () => {
+    formRef.value?.resetFields()
+  }
+
   return {
     ...other,
 
     queryParameters,
     roles,
+    formRef,
 
     queryRoles,
     handleSizeChange,
     handleCurrentChange,
     handleSubmit,
     handleDelete,
+    onClear,
   }
 }

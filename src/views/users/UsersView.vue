@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <template #header>
-      <el-form :inline="true" :model="queryParams" ref="formRef">
+      <el-form :inline="true" :model="queryParams">
         <el-form-item label="手机号" prop="phone">
           <el-input
             v-model="queryParams.phone"
@@ -81,8 +81,6 @@ const {
   handleChange,
   queryParams,
   getPages,
-  formRef,
-  onClear,
   timeRange,
   handleSizeChange,
   handleCurrentChange,

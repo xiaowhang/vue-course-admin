@@ -1,16 +1,11 @@
 <template>
-  <el-dialog
-    v-model="dialogFormVisible"
-    :title="msgText + '资源'"
-    width="500"
-    @close="formRef?.resetFields()"
-  >
+  <el-dialog v-model="dialogFormVisible" :title="msgText + '资源'" width="500" @closed="resetForm">
     <el-form :model="form" ref="formRef">
       <el-form-item label="角色名称" :label-width="formLabelWidth" prop="name">
         <el-input v-model="form.name" autocomplete="off" />
       </el-form-item>
-      <el-form-item label="角色编码" :label-width="formLabelWidth" prop="url">
-        <el-input v-model="form.url" autocomplete="off" />
+      <el-form-item label="角色编码" :label-width="formLabelWidth" prop="code">
+        <el-input v-model="form.code" autocomplete="off" />
       </el-form-item>
       <el-form-item label="描述" :label-width="formLabelWidth" prop="description">
         <el-input v-model="form.description" type="textarea" />
@@ -24,38 +19,15 @@
 </template>
 
 <script setup lang="ts">
-import type { FormInstance } from 'element-plus'
-const dialogFormVisible = ref(false)
+import { useRoles } from '@/composables'
 
-const formRef = ref<FormInstance>()
+const { form, dialogFormVisible, msgText, handleCreate, handleEdit, onClose, resetForm } =
+  useRoles()
 
-const msgText = ref('创建')
-
-const form = ref({
-  name: '',
-  url: '',
-  categoryId: '',
-  description: '',
-})
-
-const onClose = () => {
-  dialogFormVisible.value = false
-}
+const formLabelWidth = ref('100px')
 
 const handleSubmit = () => {
-  console.log('submit')
-}
-
-const formLabelWidth = '80px'
-
-const handleCreate = () => {
-  dialogFormVisible.value = true
-  msgText.value = '创建'
-}
-
-const handleEdit = () => {
-  dialogFormVisible.value = true
-  msgText.value = '编辑'
+  console.log('form', form.value)
 }
 
 defineExpose({

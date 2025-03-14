@@ -3,7 +3,7 @@
     v-model="dialogFormVisible"
     :title="msgText + '资源类别'"
     width="500"
-    @close="formRef?.resetFields()"
+    @closed="resetForm"
   >
     <el-form :model="form" ref="formRef">
       <el-form-item label="类别名称" :label-width="formLabelWidth" prop="name">
@@ -27,7 +27,7 @@ const {
   form,
   dialogFormVisible,
   msgText,
-  formRef,
+  resetForm,
   onClose,
   handleSubmit,
   handleCreate,

@@ -48,3 +48,8 @@ export const getRolePages = (data: getRolePagesParamsType) => {
     data,
   })
 }
+
+export type roleFormType = Partial<Pick<RoleType, 'code' | 'name'>> & {
+  id?: number
+  description?: string
+}

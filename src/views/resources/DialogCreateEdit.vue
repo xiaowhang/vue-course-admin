@@ -1,10 +1,5 @@
 <template>
-  <el-dialog
-    v-model="dialogFormVisible"
-    :title="msgText + '资源'"
-    width="500"
-    @close="formRef?.resetFields()"
-  >
+  <el-dialog v-model="dialogFormVisible" :title="msgText + '资源'" width="500" @closed="resetForm">
     <el-form :model="form" ref="formRef">
       <el-form-item label="资源名称" :label-width="formLabelWidth" prop="name">
         <el-input v-model="form.name" autocomplete="off" />
@@ -44,8 +39,8 @@ const {
   handleEdit,
   form,
   onClose,
-  formRef,
   handleSubmit,
+  resetForm,
 } = useResources()
 
 onMounted(() => {

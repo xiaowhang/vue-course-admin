@@ -6,7 +6,7 @@ export const useRoleResourceCategory = (roleResource: roleResourcesItemType) => 
   const isIndeterminate = ref(true)
   const resourceList = computed(() => roleResource.resourceList)
   const resourceIds = computed(() => resourceList.value.map((resource) => resource.id))
-  const checkedList = ref()
+  const checkedList = ref([] as number[])
 
   const handleCheckAllChange = (val: CheckboxValueType) => {
     checkedList.value = val ? resourceIds.value : []

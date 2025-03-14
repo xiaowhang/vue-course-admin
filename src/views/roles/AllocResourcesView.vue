@@ -4,6 +4,7 @@
       v-for="roleResource in roleResources"
       :key="roleResource.id"
       :roleResource="roleResource"
+      @postCheckedIdsRef="handleCheckedIdsRef"
     />
   </el-container>
 </template>
@@ -19,7 +20,7 @@ const props = defineProps({
   },
 })
 
-const { roleResources, loadRoleResources } = useRoleResource(props.roleId)
+const { roleResources, loadRoleResources, handleCheckedIdsRef } = useRoleResource(props.roleId)
 
 onMounted(async () => {
   await loadRoleResources()
@@ -29,5 +30,9 @@ onMounted(async () => {
 <style scoped lang="scss">
 ::v-deep(.el-card:nth-child(n + 2)) {
   margin-top: 20px;
+}
+
+.el-card {
+  min-width: 600px;
 }
 </style>

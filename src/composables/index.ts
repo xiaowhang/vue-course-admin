@@ -3,4 +3,4 @@ export * from './useMenus'
 export * from './useResourceCategory'
 export * from './useResources'
 
-export * from './Roles'
+export * from './roles'

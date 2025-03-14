@@ -14,8 +14,16 @@ export const useRoleResource = (roleId: number) => {
     }
   }
 
+  const checkedIdsRefs = ref([] as Ref<number[]>[])
+  const handleCheckedIdsRef = (checkedIdsRef: Ref<number[]>) => {
+    checkedIdsRefs.value.push(checkedIdsRef)
+  }
+
   return {
     roleResources,
     loadRoleResources,
+    checkedIdsRefs,
+
+    handleCheckedIdsRef,
   }
 }

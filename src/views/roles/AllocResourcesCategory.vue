@@ -46,6 +46,9 @@ onMounted(() => {
     .filter((resource) => resource.selected)
     .map((resource) => resource.id)
 })
+
+const emit = defineEmits<{ (evt: 'postCheckedIdsRef', payload: Ref<number[]>): void }>()
+emit('postCheckedIdsRef', checkedList)
 </script>
 
 <style scoped lang="scss"></style>

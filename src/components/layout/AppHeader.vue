@@ -40,9 +40,16 @@ const userInfo = reactive({
   userName: '',
   portrait: '',
 })
-getUserInfo().then((res) => {
-  const { userName, portrait } = res.data.content
-  Object.assign(userInfo, { userName, portrait })
+
+onMounted(async () => {
+  try {
+    const { data } = await getUserInfo()
+    if (data.success) {
+      Object.assign(userInfo, data.content)
+    }
+  } catch (error) {
+    console.error('获取用户信息失败:', error)
+  }
 })
 
 const router = useRouter()

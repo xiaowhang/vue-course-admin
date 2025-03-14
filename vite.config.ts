@@ -15,50 +15,46 @@ import IconsResolver from 'unplugin-icons/resolver'
 import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
-export default defineConfig(({ mode }) => {
-  const env = loadEnv(mode, process.cwd())
-
-  return {
-    server: {
-      proxy: {
-        '/api': {
-          target: env.VITE_API_BASE_URL,
-          changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api/, ''),
-        },
+export default defineConfig({
+  server: {
+    proxy: {
+      '/api': {
+        target: loadEnv('', process.cwd()).VITE_API_BASE_URL,
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
-    plugins: [
-      vue(),
-      vueJsx(),
-      vueDevTools(),
-      tailwindcss(),
-      AutoImport({
-        imports: ['vue', 'vue-router'],
-        resolvers: [
-          ElementPlusResolver(),
-          IconsResolver({
-            prefix: 'Icon',
-          }),
-        ],
-      }),
-      Components({
-        resolvers: [
-          ElementPlusResolver(),
-          IconsResolver({
-            prefix: false,
-            enabledCollections: ['ep'],
-          }),
-        ],
-      }),
-      Icons({
-        autoInstall: true,
-      }),
-    ],
-    resolve: {
-      alias: {
-        '@': fileURLToPath(new URL('./src', import.meta.url)),
-      },
+  },
+  plugins: [
+    vue(),
+    vueJsx(),
+    vueDevTools(),
+    tailwindcss(),
+    AutoImport({
+      imports: ['vue', 'vue-router'],
+      resolvers: [
+        ElementPlusResolver(),
+        IconsResolver({
+          prefix: 'Icon',
+        }),
+      ],
+    }),
+    Components({
+      resolvers: [
+        ElementPlusResolver(),
+        IconsResolver({
+          prefix: false,
+          enabledCollections: ['ep'],
+        }),
+      ],
+    }),
+    Icons({
+      autoInstall: true,
+    }),
+  ],
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
-  }
+  },
 })

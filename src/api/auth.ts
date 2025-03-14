@@ -8,26 +8,32 @@ type ApiResponse<T> = {
   time: string
 }
 
-export type LoginInfoType = {
+export type LoginParamsType = {
   phone: string
   code?: string
   password: string
 }
 
-// 用户登录
-export const login = (data: LoginInfoType) => {
-  const params = new URLSearchParams()
-  params.append('phone', data.phone)
-  params.append('password', data.password)
+export type LoginInfoType<T> = {
+  content: T
+  message: string
+  state: number
+  success: boolean
+}
 
-  return request<ApiResponse<string>>({
+// 用户登录
+export const login = (data: LoginParamsType) => {
+  return request<LoginInfoType<string>>({
     method: 'POST',
     url: '/api/front/user/login',
-    data: params,
+    data: {
+      phone: data.phone,
+      password: data.password,
+    },
   })
 }
 
-export type AuthInfoType = ApiResponse<{
+export type AuthInfoType = LoginInfoType<{
   isUpdatePassword: boolean
   portrait: string
   userName: string

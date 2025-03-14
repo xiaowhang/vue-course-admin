@@ -8,7 +8,7 @@
         </RouterLink>
         <el-sub-menu index="1">
           <template #title>
-            <el-icon><EpSetting /></el-icon>
+            <el-icon><EpLock /></el-icon>
             <span>权限管理</span>
           </template>
           <el-menu-item index="/menus">
@@ -25,11 +25,11 @@
           </el-menu-item>
         </el-sub-menu>
         <el-menu-item index="/courses">
-          <el-icon><EpSetting /></el-icon>
+          <el-icon><EpFilm /></el-icon>
           <template #title>课程管理</template>
         </el-menu-item>
         <el-menu-item index="/users">
-          <el-icon><EpSetting /></el-icon>
+          <el-icon><EpUser /></el-icon>
           <template #title>用户管理</template>
         </el-menu-item>
         <el-sub-menu index="2">

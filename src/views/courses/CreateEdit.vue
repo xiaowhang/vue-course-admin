@@ -23,7 +23,30 @@
         </el-steps>
       </template>
       <el-form>
-        <div v-show="currentStep === 0">基本信息</div>
+        <div v-show="currentStep === 0">
+          <el-form-item label="课程名称">
+            <el-input v-model="courseInfo.courseName" maxlength="100" show-word-limit />
+          </el-form-item>
+          <el-form-item label="课程简介">
+            <el-input v-model="courseInfo.brief" />
+          </el-form-item>
+          <el-form-item label="讲师姓名">
+            <el-input v-model="courseInfo.teacherDTO.teacherName" />
+          </el-form-item>
+          <el-form-item label="讲师职位">
+            <el-input v-model="courseInfo.teacherDTO.position" />
+          </el-form-item>
+          <el-form-item label="讲师简介">
+            <el-input v-model="courseInfo.teacherDTO.description" />
+          </el-form-item>
+          <el-form-item label="课程概述">
+            <el-input v-model="courseInfo.previewFirstField" style="flex: 1; margin-right: 10px" />
+            <el-input v-model="courseInfo.previewSecondField" style="flex: 1" />
+          </el-form-item>
+          <el-form-item label="课程排序">
+            <el-input-number v-model="courseInfo.sortNum" :min="0" />
+          </el-form-item>
+        </div>
         <div v-show="currentStep === 1">课程封面</div>
         <div v-show="currentStep === 2">销售信息</div>
         <div v-show="currentStep === 3">秒杀活动</div>
@@ -39,27 +62,13 @@
 </template>
 
 <script setup lang="ts">
-import { EditPen, Tools, Picture, Clock, Document } from '@element-plus/icons-vue'
-
+import { useCoursesCreateEdit } from '@/composables'
 const props = defineProps<{
   courseId?: string
 }>()
 
-const steps = [
-  { title: '基本信息', icon: EditPen },
-  { title: '课程封面', icon: Tools },
-  { title: '销售信息', icon: Picture },
-  { title: '秒杀活动', icon: Clock },
-  { title: '课程详情', icon: Document },
-]
-
 const router = useRouter()
-
-const title = computed(() => {
-  return props.courseId ? '编辑' : '新建'
-})
-
-const currentStep = ref<number>(0)
+const { title, steps, currentStep, courseInfo } = useCoursesCreateEdit(props)
 </script>
 
 <style scoped lang="scss">
@@ -74,6 +83,10 @@ const currentStep = ref<number>(0)
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+
+  .el-form {
+    padding: 0 40px;
   }
 }
 </style>

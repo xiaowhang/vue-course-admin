@@ -12,7 +12,9 @@ defineOptions({
   name: 'AppMain',
 })
 
-const viewStyle = {
+const route = useRoute()
+
+const defaultStyle = {
   minHeight: '100%',
   padding: '20px',
   display: 'flex',
@@ -20,6 +22,11 @@ const viewStyle = {
   alignItems: 'center',
   backgroundColor: '#e6e8eb',
 }
+
+const viewStyle = computed(() => ({
+  ...defaultStyle,
+  ...(route.meta.layoutStyle || {}),
+}))
 </script>
 
 <style scoped lang="scss">

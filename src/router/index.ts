@@ -78,12 +78,18 @@ const router = createRouter({
           path: 'courses/create',
           name: 'courses-create',
           component: () => import('@/views/courses/CreateEdit.vue'),
+          meta: {
+            layoutStyle: { alignItems: 'flex-start' },
+          },
         },
         {
           path: 'courses/:courseId/edit',
           name: 'courses-edit',
           component: () => import('@/views/courses/CreateEdit.vue'),
           props: true,
+          meta: {
+            layoutStyle: { alignItems: 'flex-start' },
+          },
         },
       ],
     },

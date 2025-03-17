@@ -71,7 +71,7 @@ onBeforeUnmount(() => {
     margin-bottom: 20px;
   }
 
-  ::v-deep(.el-form-item__buttons .el-form-item__content) {
+  :deep(.el-form-item__buttons .el-form-item__content) {
     justify-content: space-evenly;
   }
   .el-button {

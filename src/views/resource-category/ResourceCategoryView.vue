@@ -44,7 +44,7 @@ const dialogRef = ref<InstanceType<typeof DialogCreateEdit>>()
   margin: 20px;
   width: 80%;
 
-  ::v-deep(.el-card__header) {
+  :deep(.el-card__header) {
     display: flex;
     justify-content: space-between;
     align-items: center;

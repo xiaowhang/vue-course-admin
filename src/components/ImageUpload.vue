@@ -58,7 +58,7 @@ const {
   border-color: var(--el-color-primary);
 }
 
-::v-deep(.el-icon.uploader-icon) {
+:deep(.el-icon.uploader-icon) {
   font-size: 28px;
   color: #b1bfd2;
   width: 178px;

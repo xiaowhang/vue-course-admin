@@ -1,5 +1,5 @@
 import { getCourseDetail, getSectionAndLesson } from '@/api'
-import type { CourseDetailType, SectionType } from '@/api'
+import type { CourseDetailType, SectionType, lessonDTOType } from '@/api'
 
 export const useCourseContent = ({ courseId }: { courseId: string }) => {
   const courseDetail = reactive<CourseDetailType>({} as CourseDetailType)
@@ -25,9 +25,16 @@ export const useCourseContent = ({ courseId }: { courseId: string }) => {
     loadSectionAndLesson()
   })
 
+  const treeProps = {
+    children: 'lessonDTOS',
+    label: (data: any) => {
+      return (data as SectionType).sectionName || (data as lessonDTOType).theme
+    },
+  }
+
   return {
     courseDetail,
-
     sectionAndLesson,
+    treeProps,
   }
 }

@@ -34,7 +34,7 @@ onMounted(async () => {
 </script>
 
 <style scoped lang="scss">
-::v-deep(.el-card:nth-child(n + 2)) {
+:deep(.el-card:nth-child(n + 2)) {
   margin-top: 20px;
 }
 

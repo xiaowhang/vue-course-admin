@@ -143,3 +143,16 @@ export const getSectionAndLesson = (courseId: number) => {
     },
   })
 }
+
+export type SectionParamsType = Pick<
+  Partial<SectionType>,
+  'sectionName' | 'description' | 'orderNum' | 'status' | 'id'
+> & { courseId: number; courseName: string }
+
+export const saveSection = (data: SectionParamsType) => {
+  return request<ApiResponse<boolean>>({
+    method: 'POST',
+    url: '/api/boss/course/section/saveOrUpdateSection',
+    data,
+  })
+}

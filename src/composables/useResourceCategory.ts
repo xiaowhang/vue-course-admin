@@ -3,10 +3,10 @@ import { useDialogCreateEdit } from '@/composables'
 import type { ResourceCategoryType } from '@/api'
 
 export const useResourceCategory = () => {
-  const defaultForm = {
+  const defaultForm = ref({
     name: '',
     sort: 0,
-  }
+  })
 
   const { handleFormSubmit, handleFormDelete, ...other } = useDialogCreateEdit(defaultForm)
 

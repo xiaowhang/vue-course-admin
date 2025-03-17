@@ -6,35 +6,45 @@
       </template>
       <template #extra>
         <div>
-          <el-button type="primary" :icon="Plus">添加章节</el-button>
+          <el-button type="primary" :icon="Plus" @click="dialogRef?.handleCreate">
+            添加章节
+          </el-button>
         </div>
       </template>
     </el-page-header>
     <el-card>
-      <el-tree :data="sectionAndLesson" :props="treeProps">
+      <el-tree :data="sectionAndLesson" :props="treeProps" :expand-on-click-node="false">
         <template #default="{ node, data }">
           <div class="custom-tree-node">
             <span>{{ node.label }}</span>
             <div v-if="node.level === 1">
-              <el-button> 编辑 </el-button>
+              <el-button @click="dialogRef?.handleEdit({ ...courseDetail, ...data })">
+                编辑
+              </el-button>
               <el-button type="primary"> 添加课时 </el-button>
-              <el-button plain style="width: 80px"> {{ sectionStatus[data.status] }} </el-button>
+              <el-button text style="width: 80px">
+                {{ sectionStatus[data.status] }}
+              </el-button>
             </div>
             <div v-else>
               <el-button> 编辑 </el-button>
               <el-button type="success" plain> 上传视频 </el-button>
-              <el-button plain style="width: 80px"> {{ lessonStatus[data.status] }} </el-button>
+              <el-button text type="info" style="width: 80px">
+                {{ lessonStatus[data.status] }}
+              </el-button>
             </div>
           </div>
         </template>
       </el-tree>
     </el-card>
+    <SectionDialogCreateEdit ref="dialogRef" :courseName="courseDetail.courseName" />
   </el-container>
 </template>
 
 <script setup lang="ts">
 import { useCourseContent } from '@/composables'
 import { Plus } from '@element-plus/icons-vue'
+import SectionDialogCreateEdit from '@/views/courses/SectionDialogCreateEdit.vue'
 
 const router = useRouter()
 
@@ -43,6 +53,8 @@ const props = defineProps<{
 }>()
 
 const { courseDetail, sectionAndLesson, treeProps } = useCourseContent(props)
+
+const dialogRef = ref<InstanceType<typeof SectionDialogCreateEdit>>()
 
 enum sectionStatus {
   '隐藏',

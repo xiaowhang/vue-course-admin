@@ -1,7 +1,7 @@
 import { pick } from 'lodash'
 
-export const useDialogCreateEdit = (defaultFormData: any) => {
-  const form = ref(defaultFormData)
+export const useDialogCreateEdit = (defaultFormData: Ref) => {
+  const form = ref({ ...defaultFormData })
 
   const dialogFormVisible = ref(false)
 
@@ -26,14 +26,14 @@ export const useDialogCreateEdit = (defaultFormData: any) => {
     form.value = { ...defaultFormData }
   }
 
-  const handleFormSubmit = (saveFn: any, loadFn: any) => {
+  const handleFormSubmit = (saveFn: any, loadFn?: any) => {
     return async () => {
       try {
         const { data } = await saveFn(form.value)
         form.value = { ...defaultFormData }
         if (data.code === '000000' && data.data) {
           ElMessage.success(msgText.value + '成功')
-          loadFn()
+          if (loadFn) loadFn()
         } else {
           ElMessage.error(msgText.value + '失败')
         }

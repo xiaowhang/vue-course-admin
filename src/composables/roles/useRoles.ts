@@ -4,11 +4,11 @@ import { useDialogCreateEdit } from '@/composables'
 import type { FormInstance } from 'element-plus'
 
 export const useRoles = () => {
-  const defaultForm = {
+  const defaultForm = ref({
     code: '',
     name: '',
     description: '',
-  }
+  })
 
   const { handleFormSubmit, handleFormDelete, ...other } = useDialogCreateEdit(defaultForm)
 

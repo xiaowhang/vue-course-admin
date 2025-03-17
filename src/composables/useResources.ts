@@ -3,12 +3,12 @@ import type { getResourcesParamsType, ResourcePaginationType } from '@/api'
 import { useDialogCreateEdit } from '@/composables'
 
 export const useResources = () => {
-  const defaultForm = {
+  const defaultForm = ref({
     name: '',
     categoryId: 1,
     url: '',
     description: '',
-  }
+  })
 
   const { handleFormSubmit, handleFormDelete, ...other } = useDialogCreateEdit(defaultForm)
 

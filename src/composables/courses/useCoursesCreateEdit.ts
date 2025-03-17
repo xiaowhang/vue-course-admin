@@ -30,6 +30,12 @@ export const useCoursesCreateEdit = (props: { courseId: string | undefined }) =>
     // 课程封面
     courseListImg: '',
     courseImgUrl: '',
+
+    // 销售信息
+    discounts: 0,
+    price: 0,
+    sales: 0,
+    discountsTag: '',
   })
 
   return {

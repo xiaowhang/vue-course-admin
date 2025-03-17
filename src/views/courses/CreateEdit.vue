@@ -22,7 +22,7 @@
           />
         </el-steps>
       </template>
-      <el-form>
+      <el-form label-width="auto">
         <!-- 基本信息 -->
         <div v-show="currentStep === 0">
           <el-form-item label="课程名称">
@@ -56,7 +56,20 @@
             v-model:courseImgUrl="courseInfo.courseImgUrl"
           />
         </div>
-        <div v-show="currentStep === 2">销售信息</div>
+        <div v-show="currentStep === 2">
+          <el-form-item label="销售价格">
+            <el-input-number v-model="courseInfo.discounts" controls-position="right" />
+          </el-form-item>
+          <el-form-item label="商品原价">
+            <el-input-number v-model="courseInfo.price" controls-position="right" />
+          </el-form-item>
+          <el-form-item label="销量">
+            <el-input-number v-model="courseInfo.sales" controls-position="right" />
+          </el-form-item>
+          <el-form-item label="活动标签">
+            <el-input v-model="courseInfo.discountsTag" />
+          </el-form-item>
+        </div>
         <div v-show="currentStep === 3">秒杀活动</div>
         <div v-show="currentStep === 4">课程详情</div>
         <div class="form-bottom-btns">

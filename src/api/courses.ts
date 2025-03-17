@@ -102,3 +102,44 @@ export const getCourseDetail = (courseId: number) => {
     params: { courseId },
   })
 }
+
+export type SectionType = {
+  courseId: number
+  createTime: string
+  description: string
+  id: number
+  isDe: boolean
+  isVisible: boolean
+  lastOperatorId: number | null
+  lessonDTOS: lessonDTOType[]
+  orderNum: number
+  sectionName: string
+  status: number
+  updateTime: string
+}
+
+export type lessonDTOType = {
+  courseId: number
+  duration: number
+  durationNum: number
+  fileId: number
+  id: number
+  isFree: boolean
+  isTimingPublish: boolean
+  orderNum: number
+  publishTime: string
+  sectionId: number
+  startImgUrl: string
+  status: number
+  theme: string
+}
+
+export const getSectionAndLesson = (courseId: number) => {
+  return request<ApiResponse<SectionType[]>>({
+    method: 'GET',
+    url: '/api/boss/course/section/getSectionAndLesson',
+    params: {
+      courseId,
+    },
+  })
+}

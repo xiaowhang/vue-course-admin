@@ -53,7 +53,6 @@ declare module 'vue' {
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTable: typeof import('element-plus/es')['ElTable']
     ElTableColumn: typeof import('element-plus/es')['ElTableColumn']
-    ElTag: typeof import('element-plus/es')['ElTag']
     ElTree: typeof import('element-plus/es')['ElTree']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     EpExpand: typeof import('~icons/ep/expand')['default']
@@ -63,8 +62,8 @@ declare module 'vue' {
     EpSetting: typeof import('~icons/ep/setting')['default']
     EpUser: typeof import('~icons/ep/user')['default']
     ImageUpload: typeof import('./src/components/ImageUpload.vue')['default']
+    RichTextEditor: typeof import('./src/components/RichTextEditor.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    TextEditor: typeof import('./src/components/TextEditor.vue')['default']
   }
 }

@@ -100,7 +100,14 @@
             </el-form-item>
           </div>
         </div>
-        <div v-show="currentStep === 4">课程详情</div>
+        <div v-show="currentStep === 4">
+          <el-form-item label="课程详情">
+            <TextEditor v-model="courseInfo.courseDescriptionMarkDown" />
+          </el-form-item>
+          <el-form-item label="是否上架">
+            <el-switch v-model="courseInfo.status" :active-value="1" :inactive-value="0" />
+          </el-form-item>
+        </div>
         <div class="form-bottom-btns">
           <el-button @click="currentStep--" v-show="currentStep"> 上一步 </el-button>
           <el-button @click="currentStep++" v-show="currentStep !== 4"> 下一步 </el-button>
@@ -113,7 +120,7 @@
 
 <script setup lang="ts">
 import { useCoursesCreateEdit } from '@/composables'
-import { ImageUpload } from '@/components'
+import { ImageUpload, TextEditor } from '@/components'
 
 const props = defineProps<{
   courseId?: string

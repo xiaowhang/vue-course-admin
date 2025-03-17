@@ -45,6 +45,10 @@ export const useCoursesCreateEdit = (props: { courseId: string | undefined }) =>
       amount: 0,
       stock: 0,
     },
+
+    // 课程详情
+    courseDescriptionMarkDown: '',
+    status: 0,
   })
 
   const activityTimeRange = computed({

@@ -58,19 +58,48 @@
         </div>
         <div v-show="currentStep === 2">
           <el-form-item label="销售价格">
-            <el-input-number v-model="courseInfo.discounts" controls-position="right" />
+            <el-input-number v-model="courseInfo.discounts" controls-position="right" :min="0" />
           </el-form-item>
           <el-form-item label="商品原价">
-            <el-input-number v-model="courseInfo.price" controls-position="right" />
+            <el-input-number v-model="courseInfo.price" controls-position="right" :min="0" />
           </el-form-item>
           <el-form-item label="销量">
-            <el-input-number v-model="courseInfo.sales" controls-position="right" />
+            <el-input-number v-model="courseInfo.sales" controls-position="right" :min="0" />
           </el-form-item>
           <el-form-item label="活动标签">
             <el-input v-model="courseInfo.discountsTag" />
           </el-form-item>
         </div>
-        <div v-show="currentStep === 3">秒杀活动</div>
+        <div v-show="currentStep === 3">
+          <el-form-item label="限时秒杀">
+            <el-switch v-model="courseInfo.activityCourse" />
+          </el-form-item>
+          <div v-show="courseInfo.activityCourse">
+            <el-form-item label="活动时间">
+              <el-date-picker
+                v-model="activityTimeRange"
+                type="datetimerange"
+                range-separator="至"
+                start-placeholder="开始时间"
+                end-placeholder="结束时间"
+              />
+            </el-form-item>
+            <el-form-item label="活动价格">
+              <el-input-number
+                v-model="courseInfo.activityDTO.amount"
+                controls-position="right"
+                :min="0"
+              />
+            </el-form-item>
+            <el-form-item label="库存量">
+              <el-input-number
+                v-model="courseInfo.activityDTO.stock"
+                controls-position="right"
+                :min="0"
+              />
+            </el-form-item>
+          </div>
+        </div>
         <div v-show="currentStep === 4">课程详情</div>
         <div class="form-bottom-btns">
           <el-button @click="currentStep--" v-show="currentStep"> 上一步 </el-button>
@@ -91,7 +120,7 @@ const props = defineProps<{
 }>()
 
 const router = useRouter()
-const { title, steps, currentStep, courseInfo } = useCoursesCreateEdit(props)
+const { title, steps, currentStep, courseInfo, activityTimeRange } = useCoursesCreateEdit(props)
 </script>
 
 <style scoped lang="scss">

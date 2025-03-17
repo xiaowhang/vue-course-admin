@@ -36,6 +36,23 @@ export const useCoursesCreateEdit = (props: { courseId: string | undefined }) =>
     price: 0,
     sales: 0,
     discountsTag: '',
+
+    // 秒杀活动
+    activityCourse: false,
+    activityDTO: {
+      beginTime: '',
+      endTime: '',
+      amount: 0,
+      stock: 0,
+    },
+  })
+
+  const activityTimeRange = computed({
+    get: () => [courseInfo.activityDTO.beginTime, courseInfo.activityDTO.endTime],
+    set: ([start, end]) => {
+      courseInfo.activityDTO.beginTime = start
+      courseInfo.activityDTO.endTime = end
+    },
   })
 
   return {
@@ -43,5 +60,6 @@ export const useCoursesCreateEdit = (props: { courseId: string | undefined }) =>
     title,
     currentStep,
     courseInfo,
+    activityTimeRange,
   }
 }

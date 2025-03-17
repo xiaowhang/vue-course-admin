@@ -91,6 +91,12 @@ const router = createRouter({
             layoutStyle: { alignItems: 'flex-start' },
           },
         },
+        {
+          path: 'courses/:courseId/content',
+          name: 'courses-content',
+          component: () => import('@/views/courses/CourseContent.vue'),
+          props: true,
+        },
       ],
     },
     {

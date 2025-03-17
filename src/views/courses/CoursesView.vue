@@ -48,7 +48,9 @@
           <el-button @click="router.push({ name: 'courses-edit', params: { courseId: row.id } })">
             编辑
           </el-button>
-          <el-button @click="">内容管理</el-button>
+          <el-button @click="router.push({ name: 'courses-content', params: { courseId: row.id } })"
+            >内容管理</el-button
+          >
         </el-table-column>
       </el-table>
     </template>

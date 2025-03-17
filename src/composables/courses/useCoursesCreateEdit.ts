@@ -1,4 +1,8 @@
 import { EditPen, Tools, Picture, Clock, Document } from '@element-plus/icons-vue'
+import { saveCourse, getCourseDetail } from '@/api'
+import router from '@/router'
+import { cloneDeep } from 'lodash'
+import { en } from 'element-plus/es/locales.mjs'
 
 export const useCoursesCreateEdit = (props: { courseId: string | undefined }) => {
   const title = computed(() => {
@@ -39,7 +43,7 @@ export const useCoursesCreateEdit = (props: { courseId: string | undefined }) =>
 
     // 秒杀活动
     activityCourse: false,
-    activityDTO: {
+    activityCourseDTO: {
       beginTime: '',
       endTime: '',
       amount: 0,
@@ -51,13 +55,32 @@ export const useCoursesCreateEdit = (props: { courseId: string | undefined }) =>
     status: 0,
   })
 
+  onMounted(async () => {
+    if (props.courseId) {
+      const { data } = await getCourseDetail(Number(props.courseId))
+      if (data.code === '000000') {
+        Object.assign(courseInfo, cloneDeep(data.data))
+      }
+    }
+  })
+
   const activityTimeRange = computed({
-    get: () => [courseInfo.activityDTO.beginTime, courseInfo.activityDTO.endTime],
+    get: () => [courseInfo.activityCourseDTO.beginTime, courseInfo.activityCourseDTO.endTime],
     set: ([start, end]) => {
-      courseInfo.activityDTO.beginTime = start
-      courseInfo.activityDTO.endTime = end
+      courseInfo.activityCourseDTO.beginTime = start
+      courseInfo.activityCourseDTO.endTime = end
     },
   })
+
+  const onSubmit = async () => {
+    const { data } = await saveCourse(courseInfo)
+    if (data.code === '000000') {
+      ElMessage.success('保存成功')
+      router.push({ name: 'courses' })
+    } else {
+      ElMessage.error('保存失败')
+    }
+  }
 
   return {
     steps,
@@ -65,5 +88,7 @@ export const useCoursesCreateEdit = (props: { courseId: string | undefined }) =>
     currentStep,
     courseInfo,
     activityTimeRange,
+
+    onSubmit,
   }
 }

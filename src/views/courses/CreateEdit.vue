@@ -6,7 +6,7 @@
       </template>
       <template #extra>
         <div>
-          <el-button type="primary">保存</el-button>
+          <el-button type="primary" @click="onSubmit">保存</el-button>
         </div>
       </template>
     </el-page-header>
@@ -86,14 +86,14 @@
             </el-form-item>
             <el-form-item label="活动价格">
               <el-input-number
-                v-model="courseInfo.activityDTO.amount"
+                v-model="courseInfo.activityCourseDTO.amount"
                 controls-position="right"
                 :min="0"
               />
             </el-form-item>
             <el-form-item label="库存量">
               <el-input-number
-                v-model="courseInfo.activityDTO.stock"
+                v-model="courseInfo.activityCourseDTO.stock"
                 controls-position="right"
                 :min="0"
               />
@@ -111,7 +111,7 @@
         <div class="form-bottom-btns">
           <el-button @click="currentStep--" v-show="currentStep"> 上一步 </el-button>
           <el-button @click="currentStep++" v-show="currentStep !== 4"> 下一步 </el-button>
-          <el-button v-show="currentStep === 4" type="primary"> 提交 </el-button>
+          <el-button v-show="currentStep === 4" type="primary" @click="onSubmit"> 提交 </el-button>
         </div>
       </el-form>
     </el-card>
@@ -127,7 +127,8 @@ const props = defineProps<{
 }>()
 
 const router = useRouter()
-const { title, steps, currentStep, courseInfo, activityTimeRange } = useCoursesCreateEdit(props)
+const { title, steps, currentStep, courseInfo, activityTimeRange, onSubmit } =
+  useCoursesCreateEdit(props)
 </script>
 
 <style scoped lang="scss">

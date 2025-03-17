@@ -15,6 +15,7 @@ export const useCoursesCreateEdit = (props: { courseId: string | undefined }) =>
   ]
 
   const courseInfo = reactive({
+    // 课程基本信息
     courseName: '',
     brief: '',
     teacherDTO: {
@@ -25,7 +26,12 @@ export const useCoursesCreateEdit = (props: { courseId: string | undefined }) =>
     previewFirstField: '',
     previewSecondField: '',
     sortNum: 0,
+
+    // 课程封面
+    courseListImg: '',
+    courseImgUrl: '',
   })
+
   return {
     steps,
     title,

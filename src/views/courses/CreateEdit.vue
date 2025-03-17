@@ -23,6 +23,7 @@
         </el-steps>
       </template>
       <el-form>
+        <!-- 基本信息 -->
         <div v-show="currentStep === 0">
           <el-form-item label="课程名称">
             <el-input v-model="courseInfo.courseName" maxlength="100" show-word-limit />
@@ -47,7 +48,14 @@
             <el-input-number v-model="courseInfo.sortNum" :min="0" />
           </el-form-item>
         </div>
-        <div v-show="currentStep === 1">课程封面</div>
+        <!-- 课程封面 -->
+        <div v-show="currentStep === 1" class="course-cover">
+          课程封面：
+          <ImageUpload
+            v-model:courseListImg="courseInfo.courseListImg"
+            v-model:courseImgUrl="courseInfo.courseImgUrl"
+          />
+        </div>
         <div v-show="currentStep === 2">销售信息</div>
         <div v-show="currentStep === 3">秒杀活动</div>
         <div v-show="currentStep === 4">课程详情</div>
@@ -63,6 +71,8 @@
 
 <script setup lang="ts">
 import { useCoursesCreateEdit } from '@/composables'
+import { ImageUpload } from '@/components'
+
 const props = defineProps<{
   courseId?: string
 }>()
@@ -82,6 +92,12 @@ const { title, steps, currentStep, courseInfo } = useCoursesCreateEdit(props)
   .form-bottom-btns {
     display: flex;
     justify-content: center;
+    align-items: center;
+  }
+
+  .course-cover {
+    display: flex;
+    flex-direction: column;
     align-items: center;
   }
 

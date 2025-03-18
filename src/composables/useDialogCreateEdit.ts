@@ -22,17 +22,6 @@ export const useDialogCreateEdit = (defaultFormData: Ref) => {
     }
   }
 
-  const handleCreate = () => {
-    dialogFormVisible.value = true
-    msgText.value = '创建'
-    console.log('form', form.value)
-  }
-  const handleEdit = (row: any) => {
-    handleCreate()
-    msgText.value = '编辑'
-    if (row) Object.assign(form.value, pick(row, Object.keys(defaultFormData.value)))
-  }
-
   const resetForm = () => {
     form.value = { ...defaultFormData.value }
   }
@@ -87,8 +76,6 @@ export const useDialogCreateEdit = (defaultFormData: Ref) => {
     resetForm,
     onClose,
     handleShow,
-    handleCreate,
-    handleEdit,
     handleFormSubmit,
     handleFormDelete,
   }

@@ -6,7 +6,7 @@
       </template>
       <template #extra>
         <div>
-          <el-button type="primary" :icon="Plus" @click="dialogRef?.handleCreate">
+          <el-button type="primary" :icon="Plus" @click="dialogRef?.handleShow">
             添加章节
           </el-button>
         </div>
@@ -18,7 +18,7 @@
           <div class="custom-tree-node">
             <span>{{ node.label }}</span>
             <div v-if="node.level === 1">
-              <el-button @click="dialogRef?.handleEdit(data)"> 编辑 </el-button>
+              <el-button @click="dialogRef?.handleShow(data)"> 编辑 </el-button>
               <el-button type="primary"> 添加课时 </el-button>
               <el-button
                 text

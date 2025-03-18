@@ -36,16 +36,8 @@ const defaultForm = ref({
   orderNum: 0,
 })
 
-const {
-  handleFormSubmit,
-  form,
-  dialogFormVisible,
-  msgText,
-  resetForm,
-  onClose,
-  handleCreate,
-  handleEdit,
-} = useDialogCreateEdit(defaultForm)
+const { handleFormSubmit, form, dialogFormVisible, msgText, resetForm, onClose, handleShow } =
+  useDialogCreateEdit(defaultForm)
 
 const handleSubmit = handleFormSubmit(saveSection)
 
@@ -59,10 +51,7 @@ watch(
 
 const formLabelWidth = '80px'
 
-defineExpose({
-  handleCreate,
-  handleEdit,
-})
+defineExpose({ handleShow })
 </script>
 
 <style scoped lang="scss"></style>

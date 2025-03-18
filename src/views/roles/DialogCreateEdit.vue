@@ -21,23 +21,12 @@
 <script setup lang="ts">
 import { useRoles } from '@/composables'
 
-const {
-  form,
-  dialogFormVisible,
-  msgText,
-  handleCreate,
-  handleEdit,
-  onClose,
-  resetForm,
-  handleSubmit,
-} = useRoles()
+const { form, dialogFormVisible, msgText, handleShow, onClose, resetForm, handleSubmit } =
+  useRoles()
 
 const formLabelWidth = ref('100px')
 
-defineExpose({
-  handleCreate,
-  handleEdit,
-})
+defineExpose({ handleShow })
 </script>
 
 <style scoped lang="scss"></style>

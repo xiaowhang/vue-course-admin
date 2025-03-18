@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <template #header>
-      <el-button @click="dialogRef?.handleCreate">添加角色</el-button>
+      <el-button @click="dialogRef?.handleShow">添加角色</el-button>
       <el-form :inline="true" :model="queryParameters" ref="formRef">
         <el-form-item label="筛选" prop="name">
           <el-input v-model="queryParameters.name" placeholder="角色名称" />
@@ -42,7 +42,7 @@
           >
             分配资源
           </el-button>
-          <el-button type="primary" plain link @click="dialogRef?.handleEdit(row)">
+          <el-button type="primary" plain link @click="dialogRef?.handleShow(row)">
             编辑
           </el-button>
           <el-button type="danger" plain link @click="handleDelete(row.id)">删除</el-button>

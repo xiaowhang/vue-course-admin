@@ -52,7 +52,7 @@
           />
         </el-table-column>
         <el-table-column label="操作" width="120" align="center" #default="{ row }">
-          <el-button @click="dialogRef?.handleEdit(row.id)">分配角色</el-button>
+          <el-button @click="dialogRef?.handleShow(row.id)">分配角色</el-button>
         </el-table-column>
       </el-table>
     </template>
@@ -64,9 +64,7 @@
         size="large"
         layout="total, sizes, prev, pager, next, jumper"
         :page-sizes="[5, 10, 20, 50]"
-        :total="userPages?.total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
+        :total="userPages.total"
       />
     </template>
   </el-card>
@@ -78,17 +76,11 @@ import { useUsers } from '@/composables'
 import { formatDate } from '@/utils'
 import DialogCreateEdit from '@/views/users/DialogCreateEdit.vue'
 
-const {
-  userPages,
-  handleChange,
-  queryParams,
-  getPages,
-  timeRange,
-  handleSizeChange,
-  handleCurrentChange,
-} = useUsers()
+const { userPages, handleChange, queryParams, getPages, timeRange } = useUsers()
 
-console.log(userPages)
+onMounted(() => {
+  getPages()
+})
 
 const circleUrl = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png'
 

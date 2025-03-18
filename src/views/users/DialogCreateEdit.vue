@@ -13,12 +13,17 @@
 </template>
 
 <script setup lang="ts">
-import { useUsers } from '@/composables'
+import { useUsersDialog } from '@/composables'
 
-const { dialogFormVisible, handleEdit, handleSubmit } = useUsers()
+const { dialogFormVisible, handleShow } = useUsersDialog()
+
+const handleSubmit = () => {
+  ElMessage.success('提交成功')
+  dialogFormVisible.value = false
+}
 
 defineExpose({
-  handleEdit,
+  handleShow,
 })
 </script>
 

@@ -23,7 +23,7 @@
               <el-button
                 text
                 style="width: 80px"
-                @click="statusDialogRef?.openDialog(courseDetail, data)"
+                @click="statusDialogRef?.handleShow(courseDetail, data)"
               >
                 {{ sectionStatus[data.status] }}
               </el-button>

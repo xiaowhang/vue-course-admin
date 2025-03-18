@@ -10,7 +10,7 @@ export const useDialogCreateEdit = (defaultFormData: Ref) => {
     dialogFormVisible.value = false
   }
 
-  const msgText = ref('创建')
+  const msgText = ref('')
 
   const handleShow = (data?: any) => {
     dialogFormVisible.value = true

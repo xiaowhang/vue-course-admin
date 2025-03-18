@@ -2,6 +2,7 @@ import { useDialogCreateEdit } from '@/composables'
 import { saveSection } from '@/api'
 
 const defaultForm = ref({
+  courseId: 0,
   courseName: '',
   sectionName: '',
   description: '',

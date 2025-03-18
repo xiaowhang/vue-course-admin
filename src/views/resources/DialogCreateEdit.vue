@@ -29,29 +29,26 @@
 </template>
 
 <script setup lang="ts">
-import { useResources, useResourceCategory } from '@/composables'
+import { useResourcesDialog } from '@/composables'
+import type { ResourceCategoryType } from '@/api'
 
-const { ResourceCategories, loadResourceCategories } = useResourceCategory()
+defineProps({
+  ResourceCategories: Array as PropType<ResourceCategoryType[]>,
+})
+
 const {
   dialogFormVisible,
   msgText,
-  handleCreate,
-  handleEdit,
+  handleShow,
   form,
   onClose,
   handleSubmit,
   resetForm,
-} = useResources()
-
-onMounted(() => {
-  loadResourceCategories()
-})
-
-const formLabelWidth = '80px'
+  formLabelWidth,
+} = useResourcesDialog()
 
 defineExpose({
-  handleCreate,
-  handleEdit,
+  handleShow,
 })
 </script>
 

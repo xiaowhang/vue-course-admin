@@ -1,7 +1,7 @@
 <template>
   <el-card>
     <template #header>
-      <el-form :inline="true" :model="queryParameters">
+      <el-form :inline="true" :model="queryParameters" ref="queryForm">
         <el-form-item label="资源名称" prop="name">
           <el-input v-model="queryParameters.name" placeholder="资源名称" clearable />
         </el-form-item>
@@ -20,14 +20,14 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button @click="resetForm">重置</el-button>
+          <el-button @click="resetQueryForm(queryForm)">重置</el-button>
           <el-button @click="queryResources()" type="primary">查询</el-button>
         </el-form-item>
       </el-form>
     </template>
 
     <template #default>
-      <el-button @click="dialogRef?.handleCreate">添加</el-button>
+      <el-button @click="dialogRef?.handleShow">添加</el-button>
       <el-button @click="router.push({ name: 'resource-category' })">资源类别 </el-button>
       <el-table :data="resources?.records" border style="width: 100%">
         <el-table-column type="index" label="序号" width="60" align="center" />
@@ -42,7 +42,7 @@
           align="center"
         />
         <el-table-column label="操作" width="180" align="center" #default="{ row }">
-          <el-button @click="dialogRef?.handleEdit(row)" type="primary" plain> 编辑 </el-button>
+          <el-button @click="dialogRef?.handleShow(row)" type="primary" plain> 编辑 </el-button>
           <el-button @click="handleDelete(row.id)" type="danger" plain>删除</el-button>
         </el-table-column>
       </el-table>
@@ -56,12 +56,10 @@
         layout="total, sizes, prev, pager, next, jumper"
         :page-sizes="[5, 10, 20, 50]"
         :total="resources?.total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
       />
     </template>
   </el-card>
-  <DialogCreateEdit ref="dialogRef" />
+  <DialogCreateEdit ref="dialogRef" :ResourceCategories="ResourceCategories" />
 </template>
 
 <script setup lang="ts">
@@ -70,16 +68,8 @@ import { formatDateTime } from '@/utils'
 import DialogCreateEdit from '@/views/resources/DialogCreateEdit.vue'
 
 const { ResourceCategories, loadResourceCategories } = useResourceCategory()
-const {
-  queryParameters,
-  resources,
-  queryResources,
-  resetForm,
-  handleSizeChange,
-  handleCurrentChange,
-  handleDelete,
-} = useResources()
-
+const { queryParameters, resources, queryResources, handleDelete, queryForm, resetQueryForm } =
+  useResources()
 const router = useRouter()
 
 onMounted(() => {

@@ -55,7 +55,7 @@
         size="large"
         layout="total, sizes, prev, pager, next, jumper"
         :page-sizes="[5, 10, 20, 50]"
-        :total="resources?.total"
+        :total="resources.total"
       />
     </template>
   </el-card>

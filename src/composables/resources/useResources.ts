@@ -12,7 +12,7 @@ const queryParameters = reactive<getResourcesParamsType>({
 })
 
 // 资源列表
-const resources = ref<ResourcePaginationType>({
+const resources = reactive<ResourcePaginationType>({
   size: 5,
   current: 1,
   pages: 1,
@@ -24,7 +24,7 @@ const queryResources = async (param: getResourcesParamsType = { current: 1 }) =>
   Object.assign(queryParameters, param)
   const { data } = await getResources(queryParameters)
   if (data.code === '000000') {
-    resources.value = data.data
+    Object.assign(resources, data.data)
   } else {
     ElMessage.error('获取资源失败')
   }
@@ -52,16 +52,9 @@ const handleDelete = async (id: number) => {
 }
 
 watch(
-  () => resources.value.size,
-  async (size) => {
-    await queryResources({ size, current: 1 })
-  },
-)
-
-watch(
-  () => resources.value.current,
-  async (current) => {
-    await queryResources({ current })
+  () => [resources.size, resources.current],
+  async ([size, current]) => {
+    await queryResources({ size, current: current ?? 1 })
   },
 )
 

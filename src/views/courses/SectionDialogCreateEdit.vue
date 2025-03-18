@@ -10,7 +10,7 @@
       <el-form-item label="章节描述" :label-width="formLabelWidth" prop="description">
         <el-input v-model="form.description" autocomplete="off" type="textarea" />
       </el-form-item>
-      <el-form-item label="排序" :label-width="formLabelWidth" prop="sort">
+      <el-form-item label="排序" :label-width="formLabelWidth" prop="orderNum">
         <el-input-number v-model="form.orderNum" autocomplete="off" controls-position="right" />
       </el-form-item>
     </el-form>

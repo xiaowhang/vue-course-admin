@@ -6,7 +6,7 @@
       </template>
       <template #extra>
         <div>
-          <el-button type="primary" :icon="Plus" @click="dialogRef?.handleShow">
+          <el-button type="primary" :icon="Plus" @click="dialogRef?.handleShow()">
             添加章节
           </el-button>
         </div>

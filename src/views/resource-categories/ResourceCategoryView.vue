@@ -2,7 +2,7 @@
   <el-card>
     <template #header>
       <h2>资源类别管理</h2>
-      <el-button type="primary" :icon="Plus" @click="dialogRef?.handleShow"> 创建类别 </el-button>
+      <el-button type="primary" :icon="Plus" @click="dialogRef?.handleShow()"> 创建类别 </el-button>
     </template>
     <el-table :data="ResourceCategories" border style="width: 100%">
       <el-table-column type="index" label="编号" width="60" align="center" />

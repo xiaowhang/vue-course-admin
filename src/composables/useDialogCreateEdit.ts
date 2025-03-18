@@ -1,7 +1,7 @@
 import { pick } from 'lodash'
 
 export const useDialogCreateEdit = (defaultFormData: Ref) => {
-  const form = ref(defaultFormData)
+  const form = ref({ ...defaultFormData.value })
 
   const dialogFormVisible = ref(false)
 
@@ -19,22 +19,20 @@ export const useDialogCreateEdit = (defaultFormData: Ref) => {
   const handleEdit = (row: any) => {
     handleCreate()
     msgText.value = '编辑'
-
-    if (row) form.value = pick(row, Object.keys(defaultFormData))
+    if (row) Object.assign(form.value, pick(row, Object.keys(defaultFormData.value)))
   }
 
   const resetForm = () => {
-    form.value = { ...defaultFormData }
+    form.value = { ...defaultFormData.value }
   }
 
   const handleFormSubmit = (saveFn: any, loadFn?: any) => {
     return async () => {
       try {
         const { data } = await saveFn(form.value)
-        form.value = { ...defaultFormData }
         if (data.code === '000000' && data.data) {
           ElMessage.success(msgText.value + '成功')
-          if (loadFn) loadFn()
+          if (loadFn) await loadFn()
         } else {
           ElMessage.error(msgText.value + '失败')
         }
@@ -42,6 +40,7 @@ export const useDialogCreateEdit = (defaultFormData: Ref) => {
         console.log(error)
       } finally {
         onClose()
+        form.value = { ...defaultFormData.value }
       }
     }
   }

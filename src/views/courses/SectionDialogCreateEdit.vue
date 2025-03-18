@@ -26,7 +26,7 @@ import { useDialogCreateEdit } from '@/composables'
 import { saveSection } from '@/api'
 
 const props = defineProps<{
-  courseName: string
+  courseName: string | undefined
 }>()
 
 const defaultForm = ref({
@@ -53,7 +53,7 @@ watch(
   () => props.courseName,
   (newVal) => {
     form.value.courseName = newVal
-    defaultForm.value.courseName = newVal
+    defaultForm.value.courseName = newVal!
   },
 )
 

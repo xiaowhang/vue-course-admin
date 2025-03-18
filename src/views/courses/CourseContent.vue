@@ -18,9 +18,7 @@
           <div class="custom-tree-node">
             <span>{{ node.label }}</span>
             <div v-if="node.level === 1">
-              <el-button @click="dialogRef?.handleEdit({ ...courseDetail, ...data })">
-                编辑
-              </el-button>
+              <el-button @click="dialogRef?.handleEdit(data)"> 编辑 </el-button>
               <el-button type="primary"> 添加课时 </el-button>
               <el-button
                 text

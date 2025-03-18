@@ -63,11 +63,11 @@
 </template>
 
 <script setup lang="ts">
-import { useResources, useResourceCategory } from '@/composables'
+import { useResources, useResourceCategories } from '@/composables'
 import { formatDateTime } from '@/utils'
 import DialogCreateEdit from '@/views/resources/DialogCreateEdit.vue'
 
-const { ResourceCategories, loadResourceCategories } = useResourceCategory()
+const { ResourceCategories, loadResourceCategories } = useResourceCategories()
 const { queryParameters, resources, queryResources, handleDelete, queryForm, resetQueryForm } =
   useResources()
 const router = useRouter()

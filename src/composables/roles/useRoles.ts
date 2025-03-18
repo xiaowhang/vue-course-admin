@@ -1,76 +1,79 @@
-import { getRolePages, saveRole, deleteRole } from '@/api'
+import { getRolePages, deleteRole } from '@/api'
 import type { getRolePagesParamsType, RolePaginationType } from '@/api'
-import { useDialogCreateEdit } from '@/composables'
 import type { FormInstance } from 'element-plus'
 
-export const useRoles = () => {
-  const defaultForm = ref({
-    code: '',
-    name: '',
-    description: '',
-  })
+const queryParameters = reactive<getRolePagesParamsType>({
+  code: '',
+  name: '',
+  current: 1,
+  size: 5,
+})
 
-  const { handleFormSubmit, handleFormDelete, ...other } = useDialogCreateEdit(defaultForm)
+const roles = reactive<RolePaginationType>({
+  size: 5,
+  current: 1,
+  pages: 1,
+  total: 0,
+  records: [],
+})
 
-  const queryParameters = reactive<getRolePagesParamsType>({
-    code: '',
-    name: '',
-    current: 1,
-    size: 5,
-  })
+const queryRoles = async (param: getRolePagesParamsType = {}) => {
+  Object.assign(queryParameters, param)
+  const { data } = await getRolePages(queryParameters)
+  if (data.code === '000000') {
+    Object.assign(roles, data.data)
+    roles.total = Math.max(roles.total, roles.records.length)
+  } else {
+    ElMessage.error('获取角色失败')
+  }
+}
 
-  const roles = ref<RolePaginationType>({
-    size: 5,
-    current: 1,
-    pages: 1,
-    total: 0,
-    records: [],
-  })
+onMounted(() => {
+  queryRoles()
+})
 
-  const queryRoles = async (param: getRolePagesParamsType = {}) => {
-    Object.assign(queryParameters, param)
-    const { data } = await getRolePages(queryParameters)
-    if (data.code === '000000') {
-      roles.value = data.data
-      roles.value.total = Math.max(roles.value.total, roles.value.records.length)
-    } else {
-      ElMessage.error('获取角色失败')
+watch(
+  () => [queryParameters.size, queryParameters.current],
+  async ([size, current]) => {
+    await queryRoles({ size, current: current ?? 1 })
+  },
+)
+
+const handleDelete = async (id: number) => {
+  try {
+    await ElMessageBox.confirm('确定删除吗？', '提示', {
+      confirmButtonText: '确定',
+      cancelButtonText: '取消',
+      type: 'warning',
+    })
+
+    const { data } = await deleteRole(id)
+    if (data.code === '000000' && data.data) {
+      ElMessage.success('删除成功')
+      queryRoles()
+    } else ElMessage.error('删除失败')
+  } catch (error) {
+    if (error !== 'cancel') {
+      console.error(error)
     }
   }
+}
 
-  onMounted(() => {
-    queryRoles()
-  })
+const queryForm = ref<FormInstance>()
 
-  const handleSizeChange = async (size: number) => {
-    await queryRoles({ size, current: 1 })
-  }
-  const handleCurrentChange = async (current: number) => {
-    await queryRoles({ current })
-  }
+const resetQueryForm = (formEl: FormInstance | undefined) => {
+  if (!formEl) return
+  formEl.resetFields()
+}
 
-  const handleSubmit = handleFormSubmit(saveRole, queryRoles)
-
-  const handleDelete = handleFormDelete(deleteRole, queryRoles)
-
-  const formRef = ref<FormInstance>()
-
-  const onClear = () => {
-    formRef.value?.resetFields()
-  }
-
+export const useRoles = () => {
   return {
-    ...other,
-
     queryParameters,
     roles,
-    formRef,
+    queryForm,
 
     queryRoles,
-    handleSizeChange,
-    handleCurrentChange,
-    handleSubmit,
     handleDelete,
-    onClear,
+    resetQueryForm,
   }
 }

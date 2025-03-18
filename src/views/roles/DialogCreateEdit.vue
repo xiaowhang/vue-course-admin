@@ -19,12 +19,18 @@
 </template>
 
 <script setup lang="ts">
-import { useRoles } from '@/composables'
+import { useRolesDialog } from '@/composables'
 
-const { form, dialogFormVisible, msgText, handleShow, onClose, resetForm, handleSubmit } =
-  useRoles()
-
-const formLabelWidth = ref('100px')
+const {
+  form,
+  dialogFormVisible,
+  msgText,
+  handleShow,
+  onClose,
+  resetForm,
+  handleSubmit,
+  formLabelWidth,
+} = useRolesDialog()
 
 defineExpose({ handleShow })
 </script>

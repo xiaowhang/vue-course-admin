@@ -7,7 +7,7 @@
           <el-input v-model="queryParameters.name" placeholder="角色名称" />
         </el-form-item>
         <el-form-item>
-          <el-button @click="onClear">重置</el-button>
+          <el-button @click="resetQueryForm(queryForm)">重置</el-button>
           <el-button type="primary" @click="queryRoles()">搜索</el-button>
         </el-form-item>
       </el-form>
@@ -58,8 +58,6 @@
         layout="total, sizes, prev, pager, next, jumper"
         :page-sizes="[5, 10, 20, 50]"
         :total="roles?.total"
-        @size-change="handleSizeChange"
-        @current-change="handleCurrentChange"
       />
     </template>
   </el-card>
@@ -71,16 +69,7 @@ import { useRoles } from '@/composables'
 import { formatDateTime } from '@/utils'
 import DialogCreateEdit from '@/views/roles/DialogCreateEdit.vue'
 
-const {
-  queryParameters,
-  roles,
-  queryRoles,
-  handleSizeChange,
-  handleCurrentChange,
-  handleDelete,
-  formRef,
-  onClear,
-} = useRoles()
+const { queryParameters, roles, queryRoles, handleDelete, queryForm, resetQueryForm } = useRoles()
 const router = useRouter()
 
 const dialogRef = useTemplateRef<InstanceType<typeof DialogCreateEdit>>('dialogRef')

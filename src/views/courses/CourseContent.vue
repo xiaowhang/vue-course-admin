@@ -13,7 +13,13 @@
       </template>
     </el-page-header>
     <el-card>
-      <el-tree :data="sectionAndLesson" :props="treeProps">
+      <el-tree
+        :data="sectionAndLesson"
+        :props="treeProps"
+        draggable
+        :allow-drop="handleAllowDrop"
+        @node-drop="onNodeDrop"
+      >
         <template #default="{ node, data }">
           <div class="custom-tree-node">
             <span>{{ node.label }}</span>
@@ -32,7 +38,9 @@
             </div>
             <div v-else>
               <el-button @click.stop="lessonDialogRef?.handleShow(node)"> 编辑 </el-button>
-              <el-button type="success" plain> 上传视频 </el-button>
+              <el-button type="success" plain @click="uploadDialogRef?.handleShow(node)">
+                上传视频
+              </el-button>
               <el-button
                 text
                 type="info"
@@ -50,6 +58,7 @@
     <SectionStatusChange ref="sectionStatusDialogRef" />
     <LessonDialogCreateEdit ref="lessonDialogRef" :courseName="courseDetail.courseName" />
     <LessonStatusChange ref="lessonStatusDialogRef" />
+    <UploadVedioImageDialog ref="uploadDialogRef" />
   </el-container>
 </template>
 
@@ -60,6 +69,10 @@ import SectionDialogCreateEdit from '@/views/courses/SectionDialogCreateEdit.vue
 import SectionStatusChange from '@/views/courses/SectionStatusChange.vue'
 import LessonDialogCreateEdit from '@/views/courses/LessonDialogCreateEdit.vue'
 import LessonStatusChange from './LessonStatusChange.vue'
+import UploadVedioImageDialog from './UploadVedioImageDialog.vue'
+import type Node from 'element-plus/es/components/tree/src/model/node.mjs'
+import type { AllowDropType } from 'element-plus'
+import { saveSection, saveLesson } from '@/api'
 
 const router = useRouter()
 
@@ -69,10 +82,29 @@ const props = defineProps<{
 
 const { courseDetail, sectionAndLesson, treeProps } = useCourseContent(props)
 
+const handleAllowDrop = (draggingNode: Node, dropNode: Node, type: AllowDropType) => {
+  return type !== 'inner' && draggingNode.parent === dropNode.parent
+}
+
+const onNodeDrop = (draggingNode: Node, dropNode: Node) => {
+  const orderFn = dropNode.level === 1 ? saveSection : saveLesson
+  const changePromiseArr = dropNode.parent.childNodes.map((node: Node, index) => {
+    orderFn({
+      id: node.data.id,
+      orderNum: index + 1,
+    })
+  })
+
+  Promise.all(changePromiseArr).then(() => {
+    ElMessage.success('排序成功')
+  })
+}
+
 const sectionDialogRef = ref<InstanceType<typeof SectionDialogCreateEdit>>()
 const sectionStatusDialogRef = ref<InstanceType<typeof SectionStatusChange>>()
 const lessonDialogRef = ref<InstanceType<typeof LessonDialogCreateEdit>>()
 const lessonStatusDialogRef = ref<InstanceType<typeof LessonStatusChange>>()
+const uploadDialogRef = ref<InstanceType<typeof UploadVedioImageDialog>>()
 
 enum sectionStatus {
   '隐藏',

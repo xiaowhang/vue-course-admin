@@ -147,7 +147,7 @@ export const getSectionAndLesson = (courseId: number) => {
 export type SectionParamsType = Pick<
   Partial<SectionType>,
   'sectionName' | 'description' | 'orderNum' | 'status' | 'id'
-> & { courseId: number; courseName: string }
+> & { courseId?: number; courseName?: string }
 
 export const saveSection = (data: SectionParamsType) => {
   return request<ApiResponse<boolean>>({
@@ -160,7 +160,7 @@ export const saveSection = (data: SectionParamsType) => {
 export type LessonParamsType = Pick<
   Partial<lessonDTOType>,
   'theme' | 'durationNum' | 'isFree' | 'orderNum' | 'status'
-> & { courseId: number; courseName: string; sectionId: number }
+> & { courseId?: number; courseName?: string; sectionId?: number }
 
 export const saveLesson = (data: LessonParamsType) => {
   return request<ApiResponse<boolean>>({

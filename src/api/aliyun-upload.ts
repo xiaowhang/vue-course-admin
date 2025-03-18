@@ -28,10 +28,10 @@ export const getVideoUploadAuth = (fileName: string, imageUrl: string) => {
 export type ImageAuthType = {
   requestId: string
   imageId: string
-  imageUrl: string
+  imageURL: string
   uploadAddress: string
   uploadAuth: string
-  fileUrl: string
+  fileURL: string
 }
 
 export const getImageUploadAuth = () => {
@@ -53,8 +53,8 @@ export const refreshVideoUploadAuth = (VideoId: string) => {
 
 export type VideoOptType = {
   lessonId: number
-  coverImageUrl: string
-  fileId: number
+  coverImageURL: string
+  fileId: string
   fileName: string
 }
 

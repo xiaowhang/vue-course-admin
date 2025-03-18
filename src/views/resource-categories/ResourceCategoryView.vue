@@ -25,12 +25,12 @@
 </template>
 
 <script setup lang="ts">
-import { useResourceCategory } from '@/composables'
+import { useResourceCategories } from '@/composables'
 import { Plus } from '@element-plus/icons-vue'
 import { formatDateTime } from '@/utils'
-import DialogCreateEdit from '@/views/resource-category/DialogCreateEdit.vue'
+import DialogCreateEdit from '@/views/resource-categories/DialogCreateEdit.vue'
 
-const { ResourceCategories, loadResourceCategories, handleDelete } = useResourceCategory()
+const { ResourceCategories, loadResourceCategories, handleDelete } = useResourceCategories()
 
 onMounted(() => {
   loadResourceCategories()

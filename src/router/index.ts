@@ -40,7 +40,7 @@ const router = createRouter({
         {
           path: 'resource-category',
           name: 'resource-category',
-          component: () => import('@/views/resource-category/ResourceCategoryView.vue'),
+          component: () => import('@/views/resource-categories/ResourceCategoryView.vue'),
         },
         {
           path: 'resources',

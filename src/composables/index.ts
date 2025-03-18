@@ -1,6 +1,5 @@
 export * from './useDialogCreateEdit'
 export * from './useMenus'
-export * from './useResourceCategory'
 export * from './useLogin'
 export * from './useImageUpload'
 
@@ -8,3 +7,4 @@ export * from './roles'
 export * from './courses'
 export * from './resources'
 export * from './users'
+export * from './resource-categories'

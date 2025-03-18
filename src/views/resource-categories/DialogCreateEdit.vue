@@ -21,12 +21,18 @@
 </template>
 
 <script setup lang="ts">
-import { useResourceCategory } from '@/composables'
+import { useResourceCategoriesDialog } from '@/composables'
 
-const { form, dialogFormVisible, msgText, resetForm, onClose, handleSubmit, handleShow } =
-  useResourceCategory()
-
-const formLabelWidth = '80px'
+const {
+  form,
+  dialogFormVisible,
+  msgText,
+  resetForm,
+  onClose,
+  handleSubmit,
+  handleShow,
+  formLabelWidth,
+} = useResourceCategoriesDialog()
 
 defineExpose({
   handleShow,

@@ -22,34 +22,32 @@
 </template>
 
 <script setup lang="ts">
-import { useDialogCreateEdit } from '@/composables'
-import { saveSection } from '@/api'
+import { useSectionDialog } from '@/composables'
 
 const props = defineProps<{
   courseName: string | undefined
 }>()
 
-const defaultForm = ref({
-  courseName: '',
-  sectionName: '',
-  description: '',
-  orderNum: 0,
-})
-
-const { handleFormSubmit, form, dialogFormVisible, msgText, resetForm, onClose, handleShow } =
-  useDialogCreateEdit(defaultForm)
-
-const handleSubmit = handleFormSubmit(saveSection)
+const {
+  form,
+  dialogFormVisible,
+  defaultForm,
+  msgText,
+  resetForm,
+  onClose,
+  handleShow,
+  handleSubmit,
+  formLabelWidth,
+} = useSectionDialog()
 
 watch(
   () => props.courseName,
   (newVal) => {
     form.value.courseName = newVal
     defaultForm.value.courseName = newVal!
+    stop()
   },
 )
-
-const formLabelWidth = '80px'
 
 defineExpose({ handleShow })
 </script>

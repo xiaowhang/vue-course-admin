@@ -72,6 +72,10 @@ import DialogCreateEdit from '@/views/roles/DialogCreateEdit.vue'
 const { queryParameters, roles, queryRoles, handleDelete, queryForm, resetQueryForm } = useRoles()
 const router = useRouter()
 
+onMounted(() => {
+  queryRoles()
+})
+
 const dialogRef = useTemplateRef<InstanceType<typeof DialogCreateEdit>>('dialogRef')
 </script>
 

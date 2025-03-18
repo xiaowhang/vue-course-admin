@@ -28,10 +28,6 @@ const queryRoles = async (param: getRolePagesParamsType = {}) => {
   }
 }
 
-onMounted(() => {
-  queryRoles()
-})
-
 watch(
   () => [queryParameters.size, queryParameters.current],
   async ([size, current]) => {

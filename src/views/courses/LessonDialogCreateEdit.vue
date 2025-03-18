@@ -21,47 +21,30 @@
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button>取消</el-button>
-      <el-button type="primary"> 提交 </el-button>
+      <el-button @click="onClose">取消</el-button>
+      <el-button type="primary" @click="handleSubmit"> 提交 </el-button>
     </template>
   </el-dialog>
 </template>
 
 <script setup lang="ts">
-import { useDialogCreateEdit } from '@/composables'
-import { pick } from 'lodash'
+import { useLessonDialog } from '@/composables'
 
 const props = defineProps<{
   courseName: string | undefined
 }>()
 
-const defaultForm = ref({
-  courseId: 0,
-  sectionId: 0,
-  theme: '',
-  durationNum: 0,
-  isFree: false,
-  orderNum: 0,
-  status: 0,
-
-  courseName: '',
-  sectionName: '',
-})
-
-const { dialogFormVisible, form, formLabelWidth, msgText, resetForm } =
-  useDialogCreateEdit(defaultForm)
-
-const handleShow = (node: any) => {
-  dialogFormVisible.value = true
-  if (node.level === 1) {
-    msgText.value = '创建'
-    form.value.sectionName = node.data.sectionName
-  } else {
-    msgText.value = '编辑'
-    Object.assign(form.value, pick(node.data, Object.keys(defaultForm.value)))
-    form.value.sectionName = node.parent.data.sectionName
-  }
-}
+const {
+  dialogFormVisible,
+  form,
+  formLabelWidth,
+  msgText,
+  resetForm,
+  handleSubmit,
+  onClose,
+  defaultForm,
+  handleShow,
+} = useLessonDialog()
 
 watch(
   () => props.courseName,

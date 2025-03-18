@@ -156,3 +156,16 @@ export const saveSection = (data: SectionParamsType) => {
     data,
   })
 }
+
+export type LessonParamsType = Pick<
+  Partial<lessonDTOType>,
+  'theme' | 'durationNum' | 'isFree' | 'orderNum' | 'status'
+> & { courseId: number; courseName: string; sectionId: number }
+
+export const saveLesson = (data: LessonParamsType) => {
+  return request<ApiResponse<boolean>>({
+    method: 'POST',
+    url: '/api/boss/course/lesson/saveOrUpdate',
+    data,
+  })
+}

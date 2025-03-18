@@ -33,7 +33,12 @@
             <div v-else>
               <el-button @click.stop="lessonDialogRef?.handleShow(node)"> 编辑 </el-button>
               <el-button type="success" plain> 上传视频 </el-button>
-              <el-button text type="info" style="width: 80px">
+              <el-button
+                text
+                type="info"
+                style="width: 80px"
+                @click.stop="lessonStatusDialogRef?.handleShow(courseDetail, data)"
+              >
                 {{ lessonStatus[data.status] }}
               </el-button>
             </div>
@@ -44,6 +49,7 @@
     <SectionDialogCreateEdit ref="sectionDialogRef" :courseName="courseDetail.courseName" />
     <SectionStatusChange ref="sectionStatusDialogRef" />
     <LessonDialogCreateEdit ref="lessonDialogRef" :courseName="courseDetail.courseName" />
+    <LessonStatusChange ref="lessonStatusDialogRef" />
   </el-container>
 </template>
 
@@ -53,6 +59,7 @@ import { Plus } from '@element-plus/icons-vue'
 import SectionDialogCreateEdit from '@/views/courses/SectionDialogCreateEdit.vue'
 import SectionStatusChange from '@/views/courses/SectionStatusChange.vue'
 import LessonDialogCreateEdit from '@/views/courses/LessonDialogCreateEdit.vue'
+import LessonStatusChange from './LessonStatusChange.vue'
 
 const router = useRouter()
 
@@ -65,6 +72,7 @@ const { courseDetail, sectionAndLesson, treeProps } = useCourseContent(props)
 const sectionDialogRef = ref<InstanceType<typeof SectionDialogCreateEdit>>()
 const sectionStatusDialogRef = ref<InstanceType<typeof SectionStatusChange>>()
 const lessonDialogRef = ref<InstanceType<typeof LessonDialogCreateEdit>>()
+const lessonStatusDialogRef = ref<InstanceType<typeof LessonStatusChange>>()
 
 enum sectionStatus {
   '隐藏',

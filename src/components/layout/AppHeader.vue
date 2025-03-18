@@ -6,12 +6,13 @@
     </el-icon>
 
     <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">homepage</el-breadcrumb-item>
-      <el-breadcrumb-item>
-        <a href="/">promotion management</a>
+      <el-breadcrumb-item
+        v-for="(item, index) in $route.matched"
+        :key="index"
+        :to="{ path: item.path }"
+      >
+        {{ item.meta.title }}
       </el-breadcrumb-item>
-      <el-breadcrumb-item>promotion list</el-breadcrumb-item>
-      <el-breadcrumb-item>promotion detail</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-dropdown>

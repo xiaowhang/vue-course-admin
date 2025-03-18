@@ -1,4 +1,5 @@
 export * from './useCourses'
 export * from './useCoursesCreateEdit'
 export * from './useCourseContent'
-export * from './useSecionDialog'
+export * from './useSectionDialog'
+export * from './useSectionStatusChange'

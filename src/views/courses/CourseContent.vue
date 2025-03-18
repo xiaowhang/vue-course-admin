@@ -22,7 +22,11 @@
                 编辑
               </el-button>
               <el-button type="primary"> 添加课时 </el-button>
-              <el-button text style="width: 80px">
+              <el-button
+                text
+                style="width: 80px"
+                @click="statusDialogRef?.openDialog(courseDetail, data)"
+              >
                 {{ sectionStatus[data.status] }}
               </el-button>
             </div>
@@ -38,6 +42,7 @@
       </el-tree>
     </el-card>
     <SectionDialogCreateEdit ref="dialogRef" :courseName="courseDetail.courseName" />
+    <SectionStatusChange ref="statusDialogRef" />
   </el-container>
 </template>
 
@@ -45,6 +50,7 @@
 import { useCourseContent } from '@/composables'
 import { Plus } from '@element-plus/icons-vue'
 import SectionDialogCreateEdit from '@/views/courses/SectionDialogCreateEdit.vue'
+import SectionStatusChange from '@/views/courses/SectionStatusChange.vue'
 
 const router = useRouter()
 
@@ -55,6 +61,7 @@ const props = defineProps<{
 const { courseDetail, sectionAndLesson, treeProps } = useCourseContent(props)
 
 const dialogRef = ref<InstanceType<typeof SectionDialogCreateEdit>>()
+const statusDialogRef = ref<InstanceType<typeof SectionStatusChange>>()
 
 enum sectionStatus {
   '隐藏',

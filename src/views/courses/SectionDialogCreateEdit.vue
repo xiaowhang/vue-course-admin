@@ -53,6 +53,7 @@ watch(
   () => props.courseName,
   (newVal) => {
     form.value.courseName = newVal
+    defaultForm.value.courseName = newVal
   },
 )
 

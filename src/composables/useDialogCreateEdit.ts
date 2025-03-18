@@ -1,7 +1,7 @@
 import { pick } from 'lodash'
 
 export const useDialogCreateEdit = (defaultFormData: Ref) => {
-  const form = ref({ ...defaultFormData })
+  const form = ref(defaultFormData)
 
   const dialogFormVisible = ref(false)
 
@@ -14,6 +14,7 @@ export const useDialogCreateEdit = (defaultFormData: Ref) => {
   const handleCreate = () => {
     dialogFormVisible.value = true
     msgText.value = '创建'
+    console.log('form', form.value)
   }
   const handleEdit = (row: any) => {
     handleCreate()

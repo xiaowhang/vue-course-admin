@@ -33,7 +33,6 @@ export const useCourses = () => {
     return async () => {
       try {
         const { data } = await changeStatu(courseId, status === 'ENABLE' ? 0 : 1)
-        console.log(data)
         if (data.code === '000000') {
           ElMessage.success('修改成功')
           return true

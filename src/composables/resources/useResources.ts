@@ -31,7 +31,6 @@ const queryResources = async (param: getResourcesParamsType = { current: 1 }) =>
 }
 
 const handleDelete = async (id: number) => {
-  console.log('id', id)
   try {
     await ElMessageBox.confirm('确定删除吗？', '提示', {
       confirmButtonText: '确定',

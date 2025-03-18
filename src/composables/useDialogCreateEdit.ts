@@ -37,7 +37,7 @@ export const useDialogCreateEdit = (defaultFormData: Ref) => {
           ElMessage.error(msgText.value + '失败')
         }
       } catch (error) {
-        console.log(error)
+        console.error(error)
       } finally {
         onClose()
       }
@@ -46,7 +46,6 @@ export const useDialogCreateEdit = (defaultFormData: Ref) => {
 
   const handleFormDelete = (deleteFn: any, loadFn?: any) => {
     return async (id: number) => {
-      console.log('id', id)
       try {
         await ElMessageBox.confirm('确定删除吗？', '提示', {
           confirmButtonText: '确定',

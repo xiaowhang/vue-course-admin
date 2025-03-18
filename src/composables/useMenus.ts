@@ -44,7 +44,6 @@ export const useMenus = () => {
   }
 
   const handleDelete = async (id: number) => {
-    console.log('删除菜单', id)
     try {
       await ElMessageBox.confirm('确定删除该菜单吗？', '提示', {
         confirmButtonText: '确定',
